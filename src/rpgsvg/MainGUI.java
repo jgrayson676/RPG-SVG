@@ -267,7 +267,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		panelP2.add(lblPictureP2);
 		mainpanel.add(panelP2);
 		
-
+		/* Steven T. made statusPanel font bold and centered some base text */
 		JScrollPane infoPane = new JScrollPane(
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -278,14 +278,14 @@ public class MainGUI { // The main game window for RPG-SVG.
 
 		txtInfo = new JTextArea(); // Info Console
 		txtInfo.setOpaque(false);
-		txtInfo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtInfo.setFont(new Font("Tahoma", Font.BOLD, 14));
 		txtInfo.setEditable(false);
 		txtInfo.setLineWrap(true);
 		txtInfo.setWrapStyleWord(true);
 		txtInfo.setText("-------BEGIN BATTLE!-------\n");
 		appendText("\nPlayer 1 sent out " + team1.get(0).name + "!\n");
 		appendText("\nPlayer 2 sent out " + team2.get(0).name + "!\n");
-		appendText("\n----- Select your actions. -----\n");
+		appendText("\n----- Select your actions -----\n");
 		infoPane.setViewportView(txtInfo);
 		infoPane.getViewport().setOpaque(false);
 
@@ -536,7 +536,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		
 	}
-
+	/* BEGIN EDIT Steven T. victory fix, see Battle class 11-3-13 */
 	public static void refresh() // The light refresh method after a battle turn
 									// has been completed.
 	{
@@ -545,30 +545,9 @@ public class MainGUI { // The main game window for RPG-SVG.
 			refreshButtons();
 		}
 
-		boolean b = true;
-		boolean c = true;
-
-		for (int i = 0; i < team1.size(); i++) {
-			if (team1.get(i).currenthealth > 0)
-				b = false;
-		}
-		for (int j = 0; j < team2.size(); j++) {
-			if (team2.get(j).currenthealth > 0)
-				c = false;
-		}
-
-		if (b) {
-			JOptionPane.showMessageDialog(frmMainGUI, "P2 Victory!",
-					"VICTORY!", 2, team2.get(0).sprite2);
-			System.exit(0);
-		} else if (c) {
-			JOptionPane.showMessageDialog(frmMainGUI, "P1 Victory!", "VICTORY",
-					2, team1.get(0).sprite1);
-			System.exit(0);
-		} else if (team1.get(0).currenthealth != 0
+		if (team1.get(0).currenthealth != 0
 				&& team2.get(0).currenthealth != 0)
-			appendText("\n-----------------------------------\n"
-					+ "\nSelect your actions.\n");
+			appendText("\n----- Select your actions -----\n");
 
 	}
 
@@ -854,7 +833,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 	}
 
 	public static void begin() {
-		appendText("\n--------ROUND BEGIN!--------\n");
+		appendText("\n-------ROUND BEGIN!-------\n");
 		//btnBegin.setEnabled(false);
 		battle.run(actionSelectedP1, actionSelectedP2);
 		System.out.println("P1: " + actionSelectedP1 + "  P2: "

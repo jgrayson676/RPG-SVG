@@ -2,12 +2,11 @@ package rpgsvg;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import rpgsvg.triggers.*;
@@ -112,18 +111,37 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 			
 			if(p2.currenthealth != 0 && p1.currenthealth != 0)
 				MainGUI.refresh();
-			
+			/* BEGIN EDIT Steven T. fixed victory 11-3-13*/
 			if(p2.currenthealth == 0)
 			{
-				if(MainGUI.team == 2 || MainGUI.team == 0) new TeamGUI(2);
+				boolean c = true;
+				for (int j = 0; j < MainGUI.team2.size(); j++) {
+					if (MainGUI.team2.get(j).currenthealth > 0)
+						c = false;
+				}
+				if (c) {
+					JOptionPane.showMessageDialog(MainGUI.frmMainGUI, "P1 Victory!", "VICTORY",
+							2, MainGUI.team1.get(0).sprite1);
+					System.exit(0);
+				}
+				else if(MainGUI.team == 2 || MainGUI.team == 0) new TeamGUI(2);
 			}
 			
 			if(p1.currenthealth == 0)
 			{
-				if(MainGUI.team == 1 || MainGUI.team == 0) new TeamGUI(1);
+				boolean b = true;
+				for (int j = 0; j < MainGUI.team1.size(); j++) {
+					if (MainGUI.team1.get(j).currenthealth > 0)
+						b = false;
+				}
+				if (b) {
+					JOptionPane.showMessageDialog(MainGUI.frmMainGUI, "P2 Victory!", "VICTORY",
+							2, MainGUI.team2.get(0).sprite2);
+					System.exit(0);
+				}
+				else if(MainGUI.team == 1 || MainGUI.team == 0) new TeamGUI(1);
 			}
-			
-			
+			/* END EDIT Steven T. end victory fix 11-3-13*/
 		}
 	});
 	
