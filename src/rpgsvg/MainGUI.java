@@ -56,7 +56,7 @@ import java.awt.event.ActionEvent;
 
  Random Pokemon Generator - Simulator Video Game
  		Copyright 2013 The RPG-SVG Team
- 	-Steven Chen, Jonathan Grayson, Eric Yu, Raymond Chen, Shawn Kwak-
+ 	-Steven Chen, Jonathan Grayson, Eric Yu, Raymond Chen, Shawn Kwak, Steven Tran-
  		with networking by Shawn Wu
 
  *NOTE: REQUIRES JAVA SE 7*
