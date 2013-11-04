@@ -17,7 +17,6 @@ import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
@@ -81,6 +80,8 @@ import java.awt.event.ActionEvent;
  * 		v3.0- networking added
  * 		v4.0- animated sprites, colored type buttons, background, animation panel positioning
  * 		v5.0- transparent status panel, power points for moves, Generation 7 move and type changes, new background, graphical optimization, text enhancement
+ * 
+ * 		GIT Support: Woohoo! RPG-SVG is now in the cloud!
  */
 
 public class MainGUI { // The main game window for RPG-SVG.
