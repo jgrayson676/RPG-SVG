@@ -82,6 +82,8 @@ import java.awt.event.ActionEvent;
  * 		v5.0- transparent status panel, power points for moves, Generation 7 move and type changes, new background, graphical optimization, text enhancement
  * 
  * 		GIT Support: Woohoo! RPG-SVG is now in the cloud!
+ * 		
+ * 		TESTING STEVEN T. COMMIT AND PUSH
  */
 
 public class MainGUI { // The main game window for RPG-SVG.
