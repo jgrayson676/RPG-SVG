@@ -425,7 +425,6 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         }
         
         bm.pp--;
-        System.out.println(bm.pp);
         
         if(m.damage != 0)
         {
@@ -572,17 +571,16 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 	
 	public void addTrigger(Trigger t)
 	{
-		System.out.println("addtrigger started.");
 		if(t == null)
 			return;
 		int i = t.checkSlot();
 		switch(i)
 		{
-		case 1: beginturn.add(t); System.out.println("A trigger was added to beginturn."); return;
-		case 2: beforeattack.add(t); System.out.println("A trigger was added to beforeattack."); return;
-		case 3: beforedefend.add(t); System.out.println("A trigger was added to beforedefend."); return;
-		case 4: afterdefend.add(t); System.out.println("A trigger was added to afterdefend."); return;
-		case 5: endturn.add(t); System.out.println("A trigger was added to endturn."); return;
+		case 1: beginturn.add(t); 		return;
+		case 2: beforeattack.add(t); 	return;
+		case 3: beforedefend.add(t);  	return;
+		case 4: afterdefend.add(t); 	return;
+		case 5: endturn.add(t);  		return;
 		}
 	}
 

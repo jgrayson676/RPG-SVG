@@ -450,8 +450,7 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		btnReady = new JButton("Ready!");
 		btnReady.setBounds(298, 236, 118, 42);
 		btnReady.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-																//receive information from the two lists.
+			public void actionPerformed(ActionEvent arg0) {		//receive information from the two lists.							
 				List<Pokemon> teamone = team1;
 				for(Pokemon x : teamone)
 				{
@@ -462,10 +461,6 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 				{
 					x.team1 = false;
 				}
-				
-
-
-
 				if(teamone.size() < 7 && teamtwo.size() < 7 && teamone.size() != 0 && teamtwo.size() != 0)
 				{
 					if(team == 1) {
@@ -478,11 +473,8 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 						team1isReady = true;
 						team2isReady = true;
 					}
-					
 					btnReady.setEnabled(false);
-					
 					if(team1isReady && team2isReady) startGame();
-
 				}
 				else
 				{
@@ -1052,13 +1044,11 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	
 	public void addPokemon(boolean a, int index, int team) {
 		if(team == 1) {
-			System.out.println(a);
 			if(!a && index > -1 && team1.size() < 6)
 			{
 				int x = team1.size() + 1;
 				lblP1Number.setText("" + x);
 				
-				System.out.println(index);
 				team1.add((Pokemon) listModel1.remove(index));
 				
 				if(network != null && this.team == team) {
@@ -1072,7 +1062,6 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 			{
 				int x = team2.size() + 1;
 				lblP2Number.setText("" + x);
-				System.out.println(index);
 				team2.add((Pokemon) listModel2.remove(index));
 				
 				if(network != null && this.team == team) {

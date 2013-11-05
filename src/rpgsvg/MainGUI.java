@@ -200,6 +200,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		frmMainGUI = new JFrame();
 		
+		
+		
 		@SuppressWarnings("unused")
 		final JFXPanel fxPanel = new JFXPanel();
 		
@@ -454,15 +456,16 @@ public class MainGUI { // The main game window for RPG-SVG.
 		btnP2M4.setBounds(644, 351, 150, 40);
 		mainpanel.add(btnP2M4);
 		
+		Color background = new Color(255, 250, 245);
 		
-		btnP1M1.setBackground(new Color(255, 250, 245));
-		btnP1M2.setBackground(new Color(255, 250, 245));
-		btnP1M3.setBackground(new Color(255, 250, 245));
-		btnP1M4.setBackground(new Color(255, 250, 245));
-		btnP2M1.setBackground(new Color(255, 250, 245));
-		btnP2M2.setBackground(new Color(255, 250, 245));
-		btnP2M3.setBackground(new Color(255, 250, 245));
-		btnP2M4.setBackground(new Color(255, 250, 245));
+		btnP1M1.setBackground(background);
+		btnP1M2.setBackground(background);
+		btnP1M3.setBackground(background);
+		btnP1M4.setBackground(background);
+		btnP2M1.setBackground(background);
+		btnP2M2.setBackground(background);
+		btnP2M3.setBackground(background);
+		btnP2M4.setBackground(background);
 
 		btnP1Team = new JButton("Team Status / Switch Pokemon"); 	// Team 1 TeamGUI Opener
 		btnP1Team.setFont(new Font("Helvetica", Font.BOLD, 13));
@@ -534,9 +537,10 @@ public class MainGUI { // The main game window for RPG-SVG.
 			btnP1Team.setEnabled(false);
 		}
 		refreshButtons();
-		
-		
 	}
+	
+	
+	
 	/* BEGIN EDIT Steven T. victory fix, see Battle class 11-3-13 */
 	public static void refresh() // The light refresh method after a battle turn
 									// has been completed.
@@ -560,7 +564,6 @@ public class MainGUI { // The main game window for RPG-SVG.
 		battle.addTrigger(new Status(switchin));
 		battle.addTrigger(new EndStatus(switchin));
 
-		System.out.println(team1 + "   " + team2);
 
 		lblPictureP1.setIcon(team1.get(0).sprite1);
 		lblPictureP2.setIcon(team2.get(0).sprite2);
@@ -585,8 +588,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		healthBarP2.setEnabled(false);
 		healthBarP2.setEnabled(true);
 
-		System.out.println("New Pokemon Information:"
-				+ team1.get(0).getFormattedStats());
+
 
 		lblPictureP1.setToolTipText(team1.get(0).getFormattedHTMLStats());
 		lblPictureP2.setToolTipText(team2.get(0).getFormattedHTMLStats());
@@ -705,7 +707,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 	}
 
 	public static void loadRefresh() {
-		System.out.println(team1 + "   " + team2);
+
 
 		lblPictureP1.setIcon(team1.get(0).sprite1);
 		lblPictureP2.setIcon(team2.get(0).sprite2);
@@ -727,8 +729,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		healthBarP2.setEnabled(false);
 		healthBarP2.setEnabled(true);
 
-		System.out.println("New Pokemon information:"
-				+ team1.get(0).getFormattedStats());
+
 
 		lblPictureP1.setToolTipText(team1.get(0).getFormattedHTMLStats());
 		lblPictureP2.setToolTipText(team2.get(0).getFormattedHTMLStats());
@@ -796,7 +797,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		}
 		
 		if(player == team) {
-			network.sendMessage("MOVE "+action);
+			network.sendMessage("MOVE " + action);
 		}
 		
 		if(p1isDone && p2isDone) {
@@ -829,16 +830,13 @@ public class MainGUI { // The main game window for RPG-SVG.
 		}
 		
 		if(player == team) {
-			network.sendMessage("SWITCH "+action);
+			network.sendMessage("SWITCH " + action);
 		}
 	}
 
 	public static void begin() {
 		appendText("\n-------ROUND BEGIN!-------\n");
-		//btnBegin.setEnabled(false);
 		battle.run(actionSelectedP1, actionSelectedP2);
-		System.out.println("P1: " + actionSelectedP1 + "  P2: "
-				+ actionSelectedP2);
 		p1isDone = false;
 		p2isDone = false;
 	}

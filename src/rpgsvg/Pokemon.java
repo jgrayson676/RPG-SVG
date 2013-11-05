@@ -137,7 +137,6 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
 	public void addImages()	//used when a user retrieves Pokemon information from SelectGUI, or when the MainGUI is initialized, to save file i/o time.
 	{
 		 try{
-			  System.out.println("Media/Images/" + name.toLowerCase() + "flip.gif");
 	          sprite1 = new ImageIcon(this.getClass().getResource("Media/Images/" + name.toLowerCase() + "flip.gif"));
 	          sprite2 = new ImageIcon(this.getClass().getResource("Media/Images/" + name.toLowerCase() + ".gif"));
 	          minisprite = new ImageIcon(this.getClass().getResource("Media/Images/" + name.toLowerCase() + "mini.png"));
@@ -199,7 +198,6 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
 	{
 		if(team1)		
 		{
-			System.out.println("Pokemon from team 1 has " + status);
 			switch(status)
 			{
 			case NO_STATUS: MainGUI.lblStatusP1.setText(""); MainGUI.lblStatusP1.setForeground(null); break;
@@ -213,7 +211,6 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
 		}
 		else
 		{
-			System.out.println("Pokemon from team 2 has " + status);
 			switch(status)
 			{
 			case NO_STATUS: MainGUI.lblStatusP2.setText(""); MainGUI.lblStatusP1.setForeground(null); break;
@@ -252,7 +249,6 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
         int oldhealth = currenthealth;
         currenthealth += m.hp * stats[0];
         currenthealth -= m.recoil * Battle.finaldamage;
-        System.out.println(-m.recoil * Battle.finaldamage);
         
         if(currenthealth < 0)
         		currenthealth = 0;
