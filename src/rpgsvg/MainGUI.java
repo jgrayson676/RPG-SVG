@@ -107,14 +107,20 @@ public class MainGUI { // The main game window for RPG-SVG.
 	static JLabel lblHealthP2;
 	static JLabel lblP1;
 	static JLabel lblP2;
-	static JButton btnP1M1;
-	static JButton btnP1M2;
-	static JButton btnP1M3;
-	static JButton btnP1M4;
-	static JButton btnP2M1;
-	static JButton btnP2M2;
-	static JButton btnP2M3;
-	static JButton btnP2M4;
+	
+	static JButton btnP1M1 = new JButton();
+	static JButton btnP1M2 = new JButton();
+	static JButton btnP1M3 = new JButton();
+	static JButton btnP1M4 = new JButton();
+	static JButton[] p1Buttons = {btnP1M1, btnP1M2, btnP1M3, btnP1M4};
+	
+	static JButton btnP2M1 = new JButton();
+	static JButton btnP2M2 = new JButton();
+	static JButton btnP2M3 = new JButton();
+	static JButton btnP2M4 = new JButton();
+	
+	static JButton[] p2Buttons = {btnP2M1, btnP2M2, btnP2M3, btnP2M4};
+	
 	static JButton btnP1Team;
 	static JButton btnP2Team;
 	static JButton btnBegin;
@@ -336,138 +342,82 @@ public class MainGUI { // The main game window for RPG-SVG.
 		lblP2.setBounds(529, 220, 221, 23);
 		mainpanel.add(lblP2);
 
-		/* BEGIN CHANGES STEVENZC 10-31-2013 */
 		
-		btnP1M1 = new JButton(team1.get(0).moves[0].name); // P1 Move1
-		btnP1M1.setFocusable(false);
-		btnP1M1.setOpaque(true);
-		btnP1M1.setBorderPainted(true);
-		btnP1M1.setForeground(Color.BLACK);
-		btnP1M1.setFont(new Font("Helvetica", Font.BOLD, 14));
-		btnP1M1.setToolTipText("Type: " + team1.get(0).moves[0].getType()
-				+ "  Accuracy: " + team1.get(0).moves[0].accuracy);
-		btnP1M1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selectMove(0, 1);
-			}});
-		btnP1M1.setBounds(6, 310, 150, 40);
-		mainpanel.add(btnP1M1);
-
-		btnP1M2 = new JButton(team1.get(0).moves[1].name); // P1 Move2
-		btnP1M2.setFocusable(false);
-		btnP1M2.setOpaque(true);
-		btnP1M2.setBorderPainted(true);
-		btnP1M2.setForeground(Color.BLACK);
-		btnP1M2.setFont(new Font("Helvetica", Font.BOLD, 14));
-		btnP1M2.setToolTipText("Type: " + team1.get(0).moves[1].getType()
-				+ "  Accuracy: " + team1.get(0).moves[1].accuracy);
-		btnP1M2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selectMove(1, 1);
-			}});
-		btnP1M2.setBounds(157, 310, 150, 40);
-		mainpanel.add(btnP1M2);
-
-		btnP1M3 = new JButton(team1.get(0).moves[2].name); // P1 Move3
-		btnP1M3.setFocusable(false);
-		btnP1M3.setOpaque(true);
-		btnP1M3.setBorderPainted(true);
-		btnP1M3.setForeground(Color.BLACK);
-		btnP1M3.setFont(new Font("Helvetica", Font.BOLD, 14));
-		btnP1M3.setToolTipText("Type: " + team1.get(0).moves[2].getType()
-				+ "  Accuracy: " + team1.get(0).moves[2].accuracy);
-		btnP1M3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selectMove(2, 1);
-			}});
-		btnP1M3.setBounds(6, 351, 150, 40);
-		mainpanel.add(btnP1M3);
-
-		btnP1M4 = new JButton(team1.get(0).moves[3].name); // P1 Move4
-		btnP1M4.setFocusable(false);
-		btnP1M4.setOpaque(true);
-		btnP1M4.setBorderPainted(true);
-		btnP1M4.setForeground(Color.BLACK);
-		btnP1M4.setFont(new Font("Helvetica", Font.BOLD, 14));
-		btnP1M4.setToolTipText("Type: " + team1.get(0).moves[3].getType()
-				+ "  Accuracy: " + team1.get(0).moves[3].accuracy);
-		btnP1M4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selectMove(3, 1);
-			}});
-		btnP1M4.setBounds(157, 351, 150, 40);
-		mainpanel.add(btnP1M4);
-
-		btnP2M1 = new JButton(team2.get(0).moves[0].name); // P2 Move1
-		btnP2M1.setFocusable(false);
-		btnP2M1.setOpaque(true);
-		btnP2M1.setBorderPainted(true);
-		btnP2M1.setForeground(Color.BLACK);
-		btnP2M1.setFont(new Font("Helvetica", Font.BOLD, 14));
-		btnP2M1.setToolTipText("Type: " + team2.get(0).moves[0].getType()
-				+ "  Accuracy: " + team2.get(0).moves[0].accuracy);
-		btnP2M1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selectMove(0, 2);
-			}});
-		btnP2M1.setBounds(493, 310, 150, 40);
-		mainpanel.add(btnP2M1);
-
-		btnP2M2 = new JButton(team2.get(0).moves[1].name); // P2 Move2
-		btnP2M2.setFocusable(false);
-		btnP2M2.setOpaque(true);
-		btnP2M2.setBorderPainted(true);
-		btnP2M2.setForeground(Color.BLACK);
-		btnP2M2.setFont(new Font("Helvetica", Font.BOLD, 14));
-		btnP2M2.setToolTipText("Type: " + team2.get(0).moves[1].getType()
-				+ "  Accuracy: " + team2.get(0).moves[1].accuracy);
-		btnP2M2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selectMove(1, 2);
-			}});
-		btnP2M2.setBounds(644, 310, 150, 40);
-		mainpanel.add(btnP2M2);
-
-		btnP2M3 = new JButton(team2.get(0).moves[2].name); // P2 Move3
-		btnP2M3.setFocusable(false);
-		btnP2M3.setOpaque(true);
-		btnP2M3.setBorderPainted(true);
-		btnP2M3.setForeground(Color.BLACK);
-		btnP2M3.setFont(new Font("Helvetica", Font.BOLD, 14));
-		btnP2M3.setToolTipText("Type: " + team2.get(0).moves[2].getType()
-				+ "  Accuracy: " + team2.get(0).moves[2].accuracy);
-		btnP2M3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selectMove(2, 2);
-			}});
-		btnP2M3.setBounds(493, 351, 150, 40);
-		mainpanel.add(btnP2M3);
-
-		btnP2M4 = new JButton(team2.get(0).moves[3].name); // P2 Move4
-		btnP2M4.setFocusable(false);
-		btnP2M4.setOpaque(true);
-		btnP2M4.setBorderPainted(true);
-		btnP2M4.setForeground(Color.BLACK);
-		btnP2M4.setFont(new Font("Helvetica", Font.BOLD, 14));
-		btnP2M4.setToolTipText("Type: " + team2.get(0).moves[3].getType()
-				+ "  Accuracy: " + team2.get(0).moves[3].accuracy);
-		btnP2M4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				selectMove(3, 2);
-			}});
-		btnP2M4.setBounds(644, 351, 150, 40);
-		mainpanel.add(btnP2M4);
+		for(int i = 0; i < 4; i++)
+		{
+			p1Buttons[i].setText(team1.get(0).moves[i].name);
+			p1Buttons[i].setFocusable(false);
+			p1Buttons[i].setOpaque(true);
+			p1Buttons[i].setBorderPainted(true);
+			p1Buttons[i].setForeground(Color.BLACK);
+			p1Buttons[i].setFont(new Font("Helvetica", Font.BOLD, 14));
+			p1Buttons[i].setToolTipText("Type: " + team1.get(0).moves[i].getType()
+					+ "  Accuracy: " + team1.get(0).moves[i].accuracy);
+			
+			p1Buttons[i].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					int target = 0;
+					for(int j = 0; j < p1Buttons.length; j++)
+					{
+						if(e.getSource().equals(p1Buttons[j]));
+						target = j;
+					}
+					selectMove(target, 1);
+				}});
+			
+			switch(i)
+			{
+			case 0: p1Buttons[i].setBounds(6, 310, 150, 40); break;
+			case 1: p1Buttons[i].setBounds(157, 310, 150, 40); break;
+			case 2: p1Buttons[i].setBounds(6, 351, 150, 40); break;
+			case 3: p1Buttons[i].setBounds(157, 351, 150, 40); 
+			}
+			
+			mainpanel.add(p1Buttons[i]);
+		}
+		
+		for(int i = 0; i < 4; i++)
+		{
+			p2Buttons[i].setText(team2.get(0).moves[i].name);
+			p2Buttons[i].setFocusable(false);
+			p2Buttons[i].setOpaque(true);
+			p2Buttons[i].setBorderPainted(true);
+			p2Buttons[i].setForeground(Color.BLACK);
+			p2Buttons[i].setFont(new Font("Helvetica", Font.BOLD, 14));
+			p2Buttons[i].setToolTipText("Type: " + team2.get(0).moves[i].getType()
+					+ "  Accuracy: " + team2.get(0).moves[i].accuracy);
+			
+			p2Buttons[i].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					int target = 0;
+					for(int j = 0; j < p2Buttons.length; j++)
+					{
+						if(e.getSource().equals(p2Buttons[j]));
+						target = j;
+					}
+					selectMove(target, 2);
+				}});
+			
+			switch(i)
+			{
+			case 0: p2Buttons[i].setBounds(493, 310, 150, 40); break;
+			case 1: p2Buttons[i].setBounds(644, 310, 150, 40); break;
+			case 2: p2Buttons[i].setBounds(493, 351, 150, 40); break;
+			case 3: p2Buttons[i].setBounds(644, 351, 150, 40); 
+			}
+			
+			mainpanel.add(p2Buttons[i]);
+		}
 		
 		Color background = new Color(255, 250, 245);
 		
-		btnP1M1.setBackground(background);
-		btnP1M2.setBackground(background);
-		btnP1M3.setBackground(background);
-		btnP1M4.setBackground(background);
-		btnP2M1.setBackground(background);
-		btnP2M2.setBackground(background);
-		btnP2M3.setBackground(background);
-		btnP2M4.setBackground(background);
+		for(int i = 0; i < 4; i++)
+		{
+			p1Buttons[i].setBackground(background);
+			p2Buttons[i].setBackground(background);
+		}
 
 		btnP1Team = new JButton("Team Status / Switch Pokemon"); 	// Team 1 TeamGUI Opener
 		btnP1Team.setFont(new Font("Helvetica", Font.BOLD, 13));
@@ -516,32 +466,49 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		//Enable the right buttons
 		if(team == 1) {
-			btnP1M1.setEnabled(team1.get(0).moves[0].pp > 0);
-			btnP1M2.setEnabled(team1.get(0).moves[1].pp > 0);
-			btnP1M3.setEnabled(team1.get(0).moves[2].pp > 0);
-			btnP1M4.setEnabled(team1.get(0).moves[3].pp > 0);
+			for(int i = 0; i < 4; i++)
+			{
+				p1Buttons[i].setEnabled(team1.get(0).moves[i].pp > 0);
+			}
 			btnP1Team.setEnabled(true);
-			btnP2M1.setEnabled(false);
-			btnP2M2.setEnabled(false);
-			btnP2M3.setEnabled(false);
-			btnP2M4.setEnabled(false);
+			disableP2Buttons();
 			btnP2Team.setEnabled(false);
 		} else if(team == 2) {
-			btnP2M1.setEnabled(team2.get(0).moves[0].pp > 0);
-			btnP2M2.setEnabled(team2.get(0).moves[1].pp > 0);
-			btnP2M3.setEnabled(team2.get(0).moves[2].pp > 0);
-			btnP2M4.setEnabled(team2.get(0).moves[3].pp > 0);
+			for(int i = 0; i < 4; i++)
+			{
+				p2Buttons[i].setEnabled(team2.get(0).moves[i].pp > 0);
+			}
 			btnP2Team.setEnabled(true);
-			btnP1M1.setEnabled(false);    
-			btnP1M2.setEnabled(false);    
-			btnP1M3.setEnabled(false);    
-			btnP1M4.setEnabled(false);    
+			disableP1Buttons(); 
 			btnP1Team.setEnabled(false);
 		}
 		refreshButtons();
 	}
 	
-	
+	public static void enableP1Buttons() {
+		for(JButton b : p1Buttons)
+		{
+			b.setEnabled(true);
+		}	
+	}
+	public static void disableP1Buttons() {
+		for(JButton b : p1Buttons)
+		{
+			b.setEnabled(false);
+		}
+	}
+	public static void enableP2Buttons() {
+		for(JButton b : p2Buttons)
+		{
+			b.setEnabled(true);
+		}
+	}
+	public static void disableP2Buttons() {
+		for(JButton b : p2Buttons)
+		{
+			b.setEnabled(false);
+		}
+	}
 	
 	/* BEGIN EDIT Steven T. victory fix, see Battle class 11-3-13 */
 	public static void refresh() // The light refresh method after a battle turn
@@ -589,42 +556,25 @@ public class MainGUI { // The main game window for RPG-SVG.
 		healthBarP2.setValue(y);
 		healthBarP2.setEnabled(false);
 		healthBarP2.setEnabled(true);
-
-
-
+		
 		lblPictureP1.setToolTipText(team1.get(0).getFormattedHTMLStats());
 		lblPictureP2.setToolTipText(team2.get(0).getFormattedHTMLStats());
 
-		btnP1M1.setText(team1.get(0).moves[0].name);
-		btnP1M2.setText(team1.get(0).moves[1].name);
-		btnP1M3.setText(team1.get(0).moves[2].name);
-		btnP1M4.setText(team1.get(0).moves[3].name);
-
-		btnP2M1.setText(team2.get(0).moves[0].name);
-		btnP2M2.setText(team2.get(0).moves[1].name);
-		btnP2M3.setText(team2.get(0).moves[2].name);
-		btnP2M4.setText(team2.get(0).moves[3].name);
+		for(int i = 0; i < 4; i++)
+		{
+			p1Buttons[i].setText(team1.get(0).moves[i].name);
+			p2Buttons[i].setText(team2.get(0).moves[i].name);
+			
+			p1Buttons[i].setToolTipText("Type: " + team1.get(0).moves[i].getType()
+					+ "  Accuracy: " + team1.get(0).moves[i].accuracy);
+			p2Buttons[i].setToolTipText("Type: " + team2.get(0).moves[i].getType()
+				+ "  Accuracy: " + team2.get(0).moves[i].accuracy);
+		}
+		
 		
 		//Enable the right buttons
 		refreshButtons();
 
-		btnP1M1.setToolTipText("Type: " + team1.get(0).moves[0].getType()
-				+ "  Accuracy: " + team1.get(0).moves[0].accuracy);
-		btnP1M2.setToolTipText("Type: " + team1.get(0).moves[1].getType()
-				+ "  Accuracy: " + team1.get(0).moves[1].accuracy);
-		btnP1M3.setToolTipText("Type: " + team1.get(0).moves[2].getType()
-				+ "  Accuracy: " + team1.get(0).moves[2].accuracy);
-		btnP1M4.setToolTipText("Type: " + team1.get(0).moves[3].getType()
-				+ "  Accuracy: " + team1.get(0).moves[3].accuracy);
-
-		btnP2M1.setToolTipText("Type: " + team2.get(0).moves[0].getType()
-				+ "  Accuracy: " + team2.get(0).moves[0].accuracy);
-		btnP2M2.setToolTipText("Type: " + team2.get(0).moves[1].getType()
-				+ "  Accuracy: " + team2.get(0).moves[1].accuracy);
-		btnP2M3.setToolTipText("Type: " + team2.get(0).moves[2].getType()
-				+ "  Accuracy: " + team2.get(0).moves[2].accuracy);
-		btnP2M4.setToolTipText("Type: " + team2.get(0).moves[3].getType()
-				+ "  Accuracy: " + team2.get(0).moves[3].accuracy);
 
 		team1.get(0).setStatusText();
 		team2.get(0).setStatusText();
@@ -661,50 +611,42 @@ public class MainGUI { // The main game window for RPG-SVG.
 	
 	public static void refreshButtons() {		//Enable the right buttons
 		if(team == 1) {
-			btnP1M1.setEnabled(team1.get(0).moves[0].pp > 0);
-			btnP1M2.setEnabled(team1.get(0).moves[1].pp > 0);
-			btnP1M3.setEnabled(team1.get(0).moves[2].pp > 0);
-			btnP1M4.setEnabled(team1.get(0).moves[3].pp > 0);
+			for(int i = 0; i < 4; i++)
+			{
+				p1Buttons[i].setEnabled(team1.get(0).moves[i].pp > 0);
+			}
 			btnP1Team.setEnabled(true);
-			btnP2M1.setEnabled(false);
-			btnP2M2.setEnabled(false);
-			btnP2M3.setEnabled(false);
-			btnP2M4.setEnabled(false);
+			disableP2Buttons();
 			btnP2Team.setEnabled(false);
 		} else if(team == 2) {
-			btnP2M1.setEnabled(team2.get(0).moves[0].pp > 0);
-			btnP2M2.setEnabled(team2.get(0).moves[1].pp > 0);
-			btnP2M3.setEnabled(team2.get(0).moves[2].pp > 0);
-			btnP2M4.setEnabled(team2.get(0).moves[3].pp > 0);
+			for(int i = 0; i < 4; i++)
+			{
+				p2Buttons[i].setEnabled(team2.get(0).moves[i].pp > 0);
+			}
 			btnP2Team.setEnabled(true);
-			btnP1M1.setEnabled(false);    
-			btnP1M2.setEnabled(false);    
-			btnP1M3.setEnabled(false);    
-			btnP1M4.setEnabled(false);    
+			disableP1Buttons();   
 			btnP1Team.setEnabled(false);
 		} else if(team == 0) {
-			btnP1M1.setEnabled(team1.get(0).moves[0].pp > 0);
-			btnP1M2.setEnabled(team1.get(0).moves[1].pp > 0);
-			btnP1M3.setEnabled(team1.get(0).moves[2].pp > 0);
-			btnP1M4.setEnabled(team1.get(0).moves[3].pp > 0);
+			for(int i = 0; i < 4; i++)
+			{
+				p1Buttons[i].setEnabled(team1.get(0).moves[i].pp > 0);
+			}
 			btnP1Team.setEnabled(true);
-			btnP2M1.setEnabled(team2.get(0).moves[0].pp > 0);
-			btnP2M2.setEnabled(team2.get(0).moves[1].pp > 0);
-			btnP2M3.setEnabled(team2.get(0).moves[2].pp > 0);
-			btnP2M4.setEnabled(team2.get(0).moves[3].pp > 0);
+			for(int i = 0; i < 4; i++)
+			{
+				p2Buttons[i].setEnabled(team2.get(0).moves[i].pp > 0);
+			}
 			btnP2Team.setEnabled(true);
 		}
 		
-		btnP1M1.setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team1.get(0).moves[0]), 3));
-		btnP1M2.setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team1.get(0).moves[1]), 3));
-		btnP1M3.setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team1.get(0).moves[2]), 3));
-		btnP1M4.setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team1.get(0).moves[3]), 3));
-		btnP2M1.setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team2.get(0).moves[0]), 3));
-		btnP2M2.setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team2.get(0).moves[1]), 3));
-		btnP2M3.setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team2.get(0).moves[2]), 3));
-		btnP2M4.setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team2.get(0).moves[3]), 3));
-		
-		
+		for(int i = 0; i < 4; i++)
+		{
+			p1Buttons[i].setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team1.get(0).moves[i]), 3));
+		}
+		for(int i = 0; i < 4; i++)
+		{
+			p2Buttons[i].setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team2.get(0).moves[i]), 3));
+		}
 		
 	}
 
@@ -736,33 +678,16 @@ public class MainGUI { // The main game window for RPG-SVG.
 		lblPictureP1.setToolTipText(team1.get(0).getFormattedHTMLStats());
 		lblPictureP2.setToolTipText(team2.get(0).getFormattedHTMLStats());
 
-		btnP1M1.setText(team1.get(0).moves[0].name);
-		btnP1M2.setText(team1.get(0).moves[1].name);
-		btnP1M3.setText(team1.get(0).moves[2].name);
-		btnP1M4.setText(team1.get(0).moves[3].name);
-
-		btnP2M1.setText(team2.get(0).moves[0].name);
-		btnP2M2.setText(team2.get(0).moves[1].name);
-		btnP2M3.setText(team2.get(0).moves[2].name);
-		btnP2M4.setText(team2.get(0).moves[3].name);
-
-		btnP1M1.setToolTipText("Type: " + team1.get(0).moves[0].getType()
-				+ "  Accuracy: " + team1.get(0).moves[0].accuracy);
-		btnP1M2.setToolTipText("Type: " + team1.get(0).moves[1].getType()
-				+ "  Accuracy: " + team1.get(0).moves[1].accuracy);
-		btnP1M3.setToolTipText("Type: " + team1.get(0).moves[2].getType()
-				+ "  Accuracy: " + team1.get(0).moves[2].accuracy);
-		btnP1M4.setToolTipText("Type: " + team1.get(0).moves[3].getType()
-				+ "  Accuracy: " + team1.get(0).moves[3].accuracy);
-
-		btnP2M1.setToolTipText("Type: " + team2.get(0).moves[0].getType()
-				+ "  Accuracy: " + team2.get(0).moves[0].accuracy);
-		btnP2M2.setToolTipText("Type: " + team2.get(0).moves[1].getType()
-				+ "  Accuracy: " + team2.get(0).moves[1].accuracy);
-		btnP2M3.setToolTipText("Type: " + team2.get(0).moves[2].getType()
-				+ "  Accuracy: " + team2.get(0).moves[2].accuracy);
-		btnP2M4.setToolTipText("Type: " + team2.get(0).moves[3].getType()
-				+ "  Accuracy: " + team2.get(0).moves[3].accuracy);
+		for(int i = 0; i < 4; i++)
+		{
+			p1Buttons[i].setText(team1.get(0).moves[i].name);
+			p2Buttons[i].setText(team2.get(0).moves[i].name);
+			
+			p1Buttons[i].setToolTipText("Type: " + team1.get(0).moves[i].getType()
+					+ "  Accuracy: " + team1.get(0).moves[i].accuracy);
+			p2Buttons[i].setToolTipText("Type: " + team2.get(0).moves[i].getType()
+				+ "  Accuracy: " + team2.get(0).moves[i].accuracy);
+		}
 
 		team1.get(0).setStatusText();
 		team2.get(0).setStatusText();
@@ -774,10 +699,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 	public static void selectMove(int action, int player) {
 		if (player == 1) {
 			actionSelectedP1 = action;
-			btnP1M1.setEnabled(false);
-			btnP1M2.setEnabled(false);
-			btnP1M3.setEnabled(false);
-			btnP1M4.setEnabled(false);
+			disableP1Buttons();
 			btnP1Team.setEnabled(false);
 			p1isDone = true;
 			appendText("\nPlayer 1 has selected! ");
@@ -785,10 +707,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 			else appendText("\n");
 		} else if (player == 2) {
 			actionSelectedP2 = action;
-			btnP2M1.setEnabled(false);
-			btnP2M2.setEnabled(false);
-			btnP2M3.setEnabled(false);
-			btnP2M4.setEnabled(false);
+			disableP2Buttons();
 			btnP2Team.setEnabled(false);
 			p2isDone = true;
 			appendText("\nPlayer 2 has selected! ");
