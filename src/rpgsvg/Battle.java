@@ -256,7 +256,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 		
 		if(move1 > -1 && move2 > -1)	//Check possible cases for attacking
 		{
-			if((((p1.stats[5] * Modifier.getStatMultiplier(p1.statModifiers[4]) * (p1.status == Pokemon.PARALYSIS?.25:1)) > (p2.stats[5] * Modifier.getStatMultiplier(p2.statModifiers[4]) * (p2.status == Pokemon.PARALYSIS?.25:1)) && p1.moves[move1].priority == p2.moves[move2].priority) || p1.moves[move1].priority > p2.moves[move2].priority) && move1 > -1)
+			if((((p1.stats[5] * Modifier.getStatMultiplier(p1.statModifiers[4]) * (p1.status == Pokemon.PARALYSIS?.25:1)) > (p2.stats[5] * Modifier.getStatMultiplier(p2.statModifiers[4]) * (p2.status == Pokemon.PARALYSIS?.25:1)) && p1.moves[move1].getPriority() == p2.moves[move2].getPriority()) || p1.moves[move1].getPriority() > p2.moves[move2].getPriority()) && move1 > -1)
 			{
 				boolean b = runAttack(p1, p2, p1.moves[move1], true);
 				if(!b && move2 > -1)
@@ -326,7 +326,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 		attacker = battacker;
 		defender = bdefender;
 		m = bm;
-		MainGUI.appendText("\n" + attacker.name + " used " + m.name + "!\n");
+		MainGUI.appendText("\n" + attacker.name + " used " + m.getClass().getName() + "!\n");
 		
 		
 		int atkstat;
@@ -339,7 +339,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 			crit = 2;
 		}
 		
-		if(m.isPhysical)
+		if(m.getContact())
 		{
 			atkstat = attacker.stats[1];
 			defstat = defender.stats[2];
@@ -351,19 +351,19 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 		}
 		
 		
-		typemod = typeCheck(m.type, defender.stats[6]);
+		typemod = typeCheck(m.getAttackType(), defender.stats[6]);
 		if(defender.stats[7] != 0)
 		{
-			typemod = typemod * typeCheck(m.type, defender.stats[7]);
+			typemod = typemod * typeCheck(m.getAttackType(), defender.stats[7]);
 		}
 
 		
 		stab = 1;
-		if(attacker.stats[6] == m.type || attacker.stats[7] == m.type)
+		if(attacker.stats[6] == m.getAttackType() || attacker.stats[7] == m.getAttackType())
 		{
 			stab = 1.5;
 		}
-		accuracy = m.accuracy * Modifier.getStatMultiplier(attacker.statModifiers[6]);
+		accuracy = m.getAccuracy() * Modifier.getStatMultiplier(attacker.statModifiers[6]);
 		
 		//APPLY BEFOREATTACK AND BEFOREDEFEND
 		for(Trigger t : MainGUI.battle.beforeattack)
@@ -402,14 +402,14 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 		
 		finaldamage = 0;
         if(crit > 1){
-            double damage = ((((((22 * m.damage * (atkstat * Math.max(Modifier.getStatMultiplier(m.isPhysical?attacker.statModifiers[0]:attacker.statModifiers[2]), 1)) / 50) / (defstat * Math.min(Modifier.getStatMultiplier(m.isPhysical?defender.statModifiers[1]:defender.statModifiers[3]), 1))) + 2) * crit * randomizer) * stab * typemod)) * tempAttackMod * tempDefenseMod;
+            double damage = ((((((22 * m.getDamage() * (atkstat * Math.max(Modifier.getStatMultiplier(m.getContact()?attacker.statModifiers[0]:attacker.statModifiers[2]), 1)) / 50) / (defstat * Math.min(Modifier.getStatMultiplier(m.getContact()?defender.statModifiers[1]:defender.statModifiers[3]), 1))) + 2) * crit * randomizer) * stab * typemod)) * tempAttackMod * tempDefenseMod;
             finaldamage = (int)Math.round(damage);
         }else{
-            double damage = ((((((22 * m.damage * (atkstat * Modifier.getStatMultiplier(m.isPhysical?attacker.statModifiers[0]:attacker.statModifiers[2])) / 50) / (defstat * Modifier.getStatMultiplier(m.isPhysical?defender.statModifiers[1]:defender.statModifiers[3]))) + 2) * crit * randomizer) * stab * typemod)) * tempAttackMod * tempDefenseMod;
+            double damage = ((((((22 * m.getDamage() * (atkstat * Modifier.getStatMultiplier(m.getContact()?attacker.statModifiers[0]:attacker.statModifiers[2])) / 50) / (defstat * Modifier.getStatMultiplier(m.getContact()?defender.statModifiers[1]:defender.statModifiers[3]))) + 2) * crit * randomizer) * stab * typemod)) * tempAttackMod * tempDefenseMod;
             finaldamage = (int) Math.round(damage);
         }
         
-        if(m.damage == 0)
+        if(m.getDamage() == 0)
 		  finaldamage = 0;
 		if(finaldamage > defender.currenthealth)
 		{
@@ -427,7 +427,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         
         bm.pp--;
         
-        if(m.damage != 0)
+        if(m.getDamage() != 0)
         {
         	if(crit > 1)
         		MainGUI.appendText("\nCritical Hit!\n");
@@ -441,7 +441,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         
 		
 		if(finaldamage != 0)
-			MainGUI.appendText("\n" + m.name + " hit for " + finaldamage + " HP!\n");
+			MainGUI.appendText("\n" + m.getClass().getName() + " hit for " + finaldamage + " HP!\n");
 		
 		
 		
@@ -475,7 +475,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 			timer2.start();
 		}
 		       //Does not apply modifier if no damage was dealt by a damage dealing move ex: absorbed discharge by volt absorb 
-		if((random.nextDouble() < m.effectChance && (typemod != 0 || (typemod == 0 && (m.damage == 0 || m.damage > 150)))) && !(finaldamage == 0 && m.damage > 0))		//APPLY STAT MODIFIERS
+		if((random.nextDouble() < m.effectChance && (typemod != 0 || (typemod == 0 && (m.getDamage() == 0 || m.getDamage() > 150)))) && !(finaldamage == 0 && m.getDamage() > 0))		//APPLY STAT MODIFIERS
 		{
 			attacker.applyModifier(m.self);
 			if(typemod > 0)
