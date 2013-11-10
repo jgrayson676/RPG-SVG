@@ -162,7 +162,7 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
 			s = s + "     Type 2: " + this.type2.toGUIString();
 		}
 		
-		s = s + "  <p><p>Moveset: " + moves[0].name + ", " + moves[1].name + ", " + moves[2].name + ", " + moves[3].name +  (ability!=null?("<p><p>Ability: " + ability.getClass().getSimpleName()):"") + "</html>";
+		s = s + "  <p><p>Moveset: " + moves[0].getClass().getName() + ", " + moves[1].getClass().getName() + ", " + moves[2].getClass().getName() + ", " + moves[3].getClass().getName() +  (ability!=null?("<p><p>Ability: " + ability.getClass().getSimpleName()):"") + "</html>";
 		
 		return s;
 	}
@@ -180,7 +180,7 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
 			s = s + "     Type 2: " + this.type2.toGUIString();
 		}
 		
-		s = s + "  \n\nMoveset: " + moves[0].name + ", " + moves[1].name + ", " + moves[2].name + ", " + moves[3].name;
+		s = s + "  \n\nMoveset: " + moves[0].getClass().getName() + ", " + moves[1].getClass().getName() + ", " + moves[2].getClass().getName() + ", " + moves[3].getClass().getName();
 		
 		return s;
 	}
