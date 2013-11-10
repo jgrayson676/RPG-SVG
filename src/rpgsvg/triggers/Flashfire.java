@@ -18,7 +18,7 @@ public class Flashfire extends Trigger{
 	
 	public void run()
 	{
-		if(Battle.m.type == 2)
+		if(Battle.m.getAttackType() == 2)
 		{
 			Battle.typemod = 0;
 		}

@@ -19,7 +19,7 @@ public class Static extends Trigger{
 	
 	public void run()
 	{
-		if(Battle.m.isPhysical && Battle.random.nextDouble() < 0.3)
+		if(Battle.m.getContact() && Battle.random.nextDouble() < 0.3)
 		{
 			Battle.attacker.applyModifier(new Modifier(1, 1, Pokemon.PARALYSIS, 0,0,0,0,0,0,0,0,0,null,true));
 			Battle.attacker.setStatusText();

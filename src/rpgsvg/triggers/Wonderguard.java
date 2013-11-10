@@ -17,7 +17,7 @@ public class Wonderguard extends Trigger{
 	public void run(){
 		
 		
-		if(!(Battle.m.type == 2 || Battle.m.type == 10 || Battle.m.type == 13 || Battle.m.type == 14 || Battle.m.type == 16)){
+		if(!(Battle.m.getAttackType() == 2 || Battle.m.getAttackType() == 10 || Battle.m.getAttackType() == 13 || Battle.m.getAttackType() == 14 || Battle.m.getAttackType() == 16)){
 			Battle.finaldamage = 0;
 		}
 	}

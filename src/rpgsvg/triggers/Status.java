@@ -22,7 +22,7 @@ public class Status extends Trigger {
         switch (parent.status)
         {
         case(Pokemon.BURN):
-            if(Battle.m.isPhysical)
+            if(Battle.m.getContact())
             {
             	Battle.tempAttackMod *= .5;
             }

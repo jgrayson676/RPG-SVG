@@ -18,7 +18,7 @@ public class Levitate extends Trigger{
 	
 	public void run()
 	{
-		if(Battle.m.type == 9)
+		if(Battle.m.getAttackType() == 9)
 		{
 			Battle.typemod = 0;
 		}

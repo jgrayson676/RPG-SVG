@@ -19,7 +19,7 @@ public class Overgrow extends Trigger {
 	public void run()
 	{
 		Modifier modifier = new Modifier();
-		if(parent.currenthealth < (parent.stats[0] / 3) && Battle.m.type == 5)
+		if(parent.currenthealth < (parent.stats[0] / 3) && Battle.m.getAttackType() == 5)
 			modifier.attack = 1.5;
 		Battle.attacker.applyModifier(modifier);
 	}

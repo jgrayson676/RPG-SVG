@@ -18,7 +18,7 @@ public class Technician extends Trigger{
 	
 	public void run(){
 		Modifier modifier = new Modifier();
-		if(Battle.m.damage <= 60){
+		if(Battle.m.getDamage() <= 60){
 			modifier.attack *= 1.5;
 		}
 		

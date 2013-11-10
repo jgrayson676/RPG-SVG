@@ -17,7 +17,7 @@ public class Waterabsorb extends Trigger{
 	}
 	
 	public void run(){
-		if(Battle.m.type == 3){
+		if(Battle.m.getAttackType() == 3){
 			Battle.finaldamage = 0;
 			Modifier mod = new Modifier();
 			mod.hp = 0.25;

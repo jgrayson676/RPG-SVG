@@ -15,7 +15,7 @@ public class Thickfat extends Trigger{
 	
 	public void run(){
 		
-		if(Battle.m.type == 2 || Battle.m.type == 6){
+		if(Battle.m.getAttackType() == 2 || Battle.m.getAttackType() == 6){
 			Battle.typemod /= 2;
 		}
 	}
