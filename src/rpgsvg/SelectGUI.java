@@ -24,7 +24,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import network.NetworkObject;
-
+import rpgsvg.moves.Move;
 import rpgsvg.triggers.*;
 
 

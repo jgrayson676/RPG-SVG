@@ -9,6 +9,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
+import rpgsvg.moves.Move;
 import rpgsvg.triggers.*;
 
 

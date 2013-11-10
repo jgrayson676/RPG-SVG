@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 
+
 import javax.swing.JFrame;
 import javax.sound.midi.*;
 import javax.swing.AbstractAction;
@@ -22,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+
 
 
 import javafx.application.Platform;
@@ -39,6 +41,7 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 import network.NetworkObject;
+import rpgsvg.moves.Move;
 import rpgsvg.triggers.EndStatus;
 import rpgsvg.triggers.Status;
 
