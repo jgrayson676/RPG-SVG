@@ -348,14 +348,14 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		for(int i = 0; i < 4; i++)
 		{
-			p1Buttons[i].setText(team1.get(0).moves[i].name);
+			p1Buttons[i].setText(team1.get(0).moves[i].getClass().getName());
 			p1Buttons[i].setFocusable(false);
 			p1Buttons[i].setOpaque(true);
 			p1Buttons[i].setBorderPainted(true);
 			p1Buttons[i].setForeground(Color.BLACK);
 			p1Buttons[i].setFont(new Font("Helvetica", Font.BOLD, 14));
 			p1Buttons[i].setToolTipText("Type: " + team1.get(0).moves[i].getType()
-					+ "  Accuracy: " + team1.get(0).moves[i].accuracy);
+					+ "  Accuracy: " + team1.get(0).moves[i].getAccuracy());
 			
 			p1Buttons[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -382,14 +382,14 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		for(int i = 0; i < 4; i++)
 		{
-			p2Buttons[i].setText(team2.get(0).moves[i].name);
+			p2Buttons[i].setText(team2.get(0).moves[i].getClass().getName());
 			p2Buttons[i].setFocusable(false);
 			p2Buttons[i].setOpaque(true);
 			p2Buttons[i].setBorderPainted(true);
 			p2Buttons[i].setForeground(Color.BLACK);
 			p2Buttons[i].setFont(new Font("Helvetica", Font.BOLD, 14));
 			p2Buttons[i].setToolTipText("Type: " + team2.get(0).moves[i].getType()
-					+ "  Accuracy: " + team2.get(0).moves[i].accuracy);
+					+ "  Accuracy: " + team2.get(0).moves[i].getAccuracy());
 			
 			p2Buttons[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -565,13 +565,13 @@ public class MainGUI { // The main game window for RPG-SVG.
 
 		for(int i = 0; i < 4; i++)
 		{
-			p1Buttons[i].setText(team1.get(0).moves[i].name);
-			p2Buttons[i].setText(team2.get(0).moves[i].name);
+			p1Buttons[i].setText(team1.get(0).moves[i].getClass().getName());
+			p2Buttons[i].setText(team2.get(0).moves[i].getClass().getName());
 			
 			p1Buttons[i].setToolTipText("Type: " + team1.get(0).moves[i].getType()
-					+ "  Accuracy: " + team1.get(0).moves[i].accuracy);
+					+ "  Accuracy: " + team1.get(0).moves[i].getAccuracy());
 			p2Buttons[i].setToolTipText("Type: " + team2.get(0).moves[i].getType()
-				+ "  Accuracy: " + team2.get(0).moves[i].accuracy);
+				+ "  Accuracy: " + team2.get(0).moves[i].getAccuracy());
 		}
 		
 		
@@ -683,13 +683,13 @@ public class MainGUI { // The main game window for RPG-SVG.
 
 		for(int i = 0; i < 4; i++)
 		{
-			p1Buttons[i].setText(team1.get(0).moves[i].name);
-			p2Buttons[i].setText(team2.get(0).moves[i].name);
+			p1Buttons[i].setText(team1.get(0).moves[i].getClass().getName());
+			p2Buttons[i].setText(team2.get(0).moves[i].getClass().getName());
 			
 			p1Buttons[i].setToolTipText("Type: " + team1.get(0).moves[i].getType()
-					+ "  Accuracy: " + team1.get(0).moves[i].accuracy);
+					+ "  Accuracy: " + team1.get(0).moves[i].getAccuracy());
 			p2Buttons[i].setToolTipText("Type: " + team2.get(0).moves[i].getType()
-				+ "  Accuracy: " + team2.get(0).moves[i].accuracy);
+				+ "  Accuracy: " + team2.get(0).moves[i].getAccuracy());
 		}
 
 		team1.get(0).setStatusText();
