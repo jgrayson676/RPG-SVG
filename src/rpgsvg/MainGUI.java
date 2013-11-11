@@ -173,7 +173,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 			@Override public void run() {
 				
 		        
-		        final URL u = getClass().getResource("Media/Audio/Poke.mp3");
+		        final URL u = getClass().getResource("Media/Audio/gymbattle.mp3");
 		        final Media hit = new Media(u.toString());
 		        mediaPlayer = new MediaPlayer(hit);
 		        mediaPlayer.play();
