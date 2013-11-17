@@ -475,13 +475,9 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 			timer2.start();
 		}
 		       //Does not apply modifier if no damage was dealt by a damage dealing move ex: absorbed discharge by volt absorb 
-		if((random.nextDouble() < m.effectChance && (typemod != 0 || (typemod == 0 && (m.getDamage() == 0 || m.getDamage() > 150)))) && !(finaldamage == 0 && m.getDamage() > 0))		//APPLY STAT MODIFIERS
+		if((typemod != 0 || (typemod == 0 && (m.getDamage() == 0 || m.getDamage() > 150))) && !(finaldamage == 0 && m.getDamage() > 0))		//APPLY STAT MODIFIERS
 		{
-			attacker.applyModifier(m.self);
-			if(typemod > 0)
-			{
-				defender.applyModifier(m.enemy);
-			}
+			m.run();
 		}
 		
 		tempAttackMod = 1;
@@ -583,6 +579,14 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 		case 4: afterdefend.add(t); 	return;
 		case 5: endturn.add(t);  		return;
 		}
+	}
+	
+	public static Pokemon getDefender(){
+		return defender;
+	}
+	
+	public static Pokemon getAttacker(){
+		return attacker;
 	}
 
 }
