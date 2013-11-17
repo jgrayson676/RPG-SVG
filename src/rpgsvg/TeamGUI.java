@@ -1,13 +1,19 @@
 package rpgsvg;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JProgressBar;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,7 +21,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 
-public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
+public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 						// information on the team and switch Pokemon.
 
 	/* FIELDS */
@@ -24,6 +30,7 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 	public int teamsize;
 	static int j;
 	static int k;
+	static JPanel teampanel;
 	
 	JLabel lblP1 = null, lblP2 = null, lblP3 = null, lblP4 = null, lblP5 = null, lblP6 = null;
 	JLabel[] lblNames = {lblP1, lblP2, lblP3, lblP4, lblP5, lblP6};
@@ -59,7 +66,17 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 	/* METHODS */
 	private void initialize() {
 
+		
+		ImageIcon l = new ImageIcon(this.getClass().getResource("Media/Images/" + MainGUI.theme.bgTeamGUI));
+		Image image = l.getImage();
+		
+		teampanel = new BackImage(image);
+		teampanel.setLayout(null);
+		
 		frmTeamGUI = new JFrame(); // The Window
+		
+		frmTeamGUI.setContentPane(teampanel);
+		
 		frmTeamGUI.setAlwaysOnTop(true);
 		
 		MainGUI.frmMainGUI.setFocusable(false);
@@ -89,12 +106,14 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 		lblInBattle.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblInBattle.setBounds(6, 6, 119, 16);
 		frmTeamGUI.getContentPane().add(lblInBattle);
+		
 
 		
 		
 		for(int i = 0; i < lblNames.length; i++)		//initialize name labels
 		{
 			lblNames[i] = new JLabel("------------");
+			lblNames[i].setForeground(Color.BLACK);
 			if (team == 1 && (teamsize > i || i == 0))
 				lblNames[i].setText(MainGUI.team1.get(i).name);
 			else if (team == 2 && (teamsize > i || i == 0))
@@ -119,6 +138,13 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 		for(int i = 0; i < healthBars.length; i++)		//initialize health bars
 		{
 			healthBars[i] = new JProgressBar();
+			healthBars[i].setStringPainted(true);
+			healthBars[i].setForeground(Color.GREEN);
+			healthBars[i].setUI(new BasicProgressBarUI() {
+			      protected Color getSelectionBackground() { return Color.black; }
+			      protected Color getSelectionForeground() { return Color.black; }
+			    });
+			
 			if(teamsize <= i)
 				healthBars[i].setVisible(false);
 			else if (team == 1)
@@ -138,8 +164,11 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 		for(int i = 0; i < btnSwitchers.length; i++)	//initialize switch buttons
 		{
 
-			btnSwitchers[i] = new JButton("SWITCH");
-			btnSwitchers[i].setFont(new Font("Futura", Font.PLAIN, 12));
+			btnSwitchers[i] = new JButton("Switch");
+			btnSwitchers[i].setForeground(Color.BLACK);
+			btnSwitchers[i].setBackground(MainGUI.theme.Color());
+			btnSwitchers[i].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			btnSwitchers[i].setFont(new Font("Helvetica", Font.BOLD, 14));
 			try{
 				if(team == 1 && MainGUI.team1.get(i+1).currenthealth == 0 || team == 2 && MainGUI.team2.get(i+1).currenthealth == 0)
 				{
@@ -181,7 +210,7 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 				}
 			});
 			
-			btnSwitchers[i].setBounds(502, 129 + 50 * i, 92, 29);
+			btnSwitchers[i].setBounds(502, 126 + 50 * i, 92, 29);
 			if(teamsize < (i + 2))
 				btnSwitchers[i].setVisible(false);
 			frmTeamGUI.getContentPane().add(btnSwitchers[i]);
@@ -189,8 +218,11 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 		
 		for(int i = 0; i < btnInfos.length; i++)		//initialize info buttons
 		{
-			btnInfos[i] = new JButton("INFO");
-			btnInfos[i].setFont(new Font("Futura", Font.PLAIN, 12));
+			btnInfos[i] = new JButton("Info");
+			btnInfos[i].setForeground(Color.BLACK);
+			btnInfos[i].setBackground(MainGUI.theme.Color());
+			btnInfos[i].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+			btnInfos[i].setFont(new Font("Helvetica", Font.BOLD, 14));
 			
 			if(teamsize < i + 1)
 				btnInfos[i].setVisible(false);
@@ -203,33 +235,42 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 							k = i;
 					}
 					if(team == 1)
-						JOptionPane.showMessageDialog(frmTeamGUI, MainGUI.team1.get(k).getFormattedStats(), MainGUI.team1.get(k).name, 2, MainGUI.team1.get(k).sprite1);
+						JOptionPane.showMessageDialog(
+								frmTeamGUI, 
+								MainGUI.team1.get(k).getFormattedStats(), 
+								MainGUI.team1.get(k).name, 2, 
+								MainGUI.team1.get(k).sprite1);
 					if(team == 2)
-						JOptionPane.showMessageDialog(frmTeamGUI, MainGUI.team2.get(k).getFormattedStats(), MainGUI.team2.get(k).name, 2, MainGUI.team2.get(k).sprite2);
+						JOptionPane.showMessageDialog(
+								frmTeamGUI, 
+								MainGUI.team2.get(k).getFormattedStats(), 
+								MainGUI.team2.get(k).name, 2, 
+								MainGUI.team2.get(k).sprite2);
 				}
 			});
 			if(i == 0)
-				btnInfos[i].setBounds(408, 34, 92, 39);
+				btnInfos[i].setBounds(408, 31, 92, 29);
 			else
-				btnInfos[i].setBounds(408, 79 + 50 * i, 92, 29);
+				btnInfos[i].setBounds(408, 76 + 50 * i, 92, 29);
 			frmTeamGUI.getContentPane().add(btnInfos[i]);
 		}
 
 		
-		
-		
 		for(int i = 0; i < lblTypes.length; i++)		//initialize type labels
 		{
 			lblTypes[i] = new JLabel("Type/Type");
+			lblTypes[i].setForeground(Color.BLACK);
 			if (team == 1 && (teamsize > i || i == 0))
-				lblTypes[i].setText(MainGUI.team1.get(i).getType1() + "/"
-						+ MainGUI.team1.get(i).getType2());
+				lblTypes[i].setText(MainGUI.team1.get(i).getType1() + 
+						(MainGUI.team1.get(i).getType2().equals("")?
+						"":("/" + MainGUI.team1.get(i).getType2())));
 			else if (team == 2 && (teamsize > i || i == 0))
-				lblTypes[i].setText(MainGUI.team2.get(i).getType1() + "/"
-						+ MainGUI.team2.get(i).getType2());
+				lblTypes[i].setText(MainGUI.team2.get(i).getType1() + 
+						(MainGUI.team2.get(i).getType2().equals("")?
+						"":("/" + MainGUI.team2.get(i).getType2())));
 			else
 				lblTypes[i].setVisible(false);
-			lblTypes[i].setFont(new Font("Helvetica", Font.PLAIN, 15));
+			lblTypes[i].setFont(new Font("Helvetica", Font.BOLD, 15));
 			if(i == 0)
 				lblTypes[i].setBounds(291, 34, 119, 20);
 			else
@@ -237,9 +278,7 @@ public class TeamGUI { // The team status window for RPG-SVG. Used to obtain
 			frmTeamGUI.getContentPane().add(lblTypes[i]);
 		}
 
-		
-		
-		
+
 		for(int i = 0; i < lblSprites.length; i++)		//initialize sprite labels
 		{
 			lblSprites[i] = new JLabel("-");

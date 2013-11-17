@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Random;
 
 
+
+
+
 import javax.swing.JFrame;
 import javax.sound.midi.*;
 import javax.swing.AbstractAction;
@@ -22,6 +25,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+
+
+
 
 
 import javafx.application.Platform;
@@ -37,6 +43,7 @@ import java.awt.Image;
 import javax.swing.JProgressBar;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import network.NetworkObject;
 import rpgsvg.triggers.EndStatus;
@@ -46,7 +53,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /*	
- _____  _____   _____        _______      _______ 
+ _____  _____   _____        _______      ________ 
  |  __ \|  __ \ / ____|      / ____\ \    / / ____|
  | |__) | |__) | |  __ _____| (___  \ \  / / |  __ 
  |  _  /|  ___/| | |_ |______\___ \  \ \/ /| | |_ |
@@ -80,10 +87,11 @@ import java.awt.event.ActionEvent;
  * 		v3.0- networking added
  * 		v4.0- animated sprites, colored type buttons, background, animation panel positioning
  * 		v5.0- transparent status panel, power points for moves, Generation 7 move and type changes, new background, graphical optimization, text enhancement
+ * 		v6.0- improved interface, themes, 
  * 
- * 		GIT Support: Woohoo! RPG-SVG is now in the cloud!
  * 		
- * 		TESTING STEVEN T. COMMIT AND PUSH
+ * 		
+ * 		
  */
 
 public class MainGUI { // The main game window for RPG-SVG.
@@ -139,6 +147,50 @@ public class MainGUI { // The main game window for RPG-SVG.
 	static MediaPlayer mediaPlayer;
 
 
+	public enum Theme {
+		
+		GROUND	(0, "MainGUIground.jpeg", "TeamGUIground.jpeg", "gymextended.mp3", new Color(255, 250, 245)),
+		ROCK	(1, "MainGUIrock.jpeg", "TeamGUIrock.jpeg", "johtochampion.mp3", new Color(227, 227, 227)),
+		WATER	(2, "MainGUIwater.jpeg", "TeamGUIwater.jpeg", "laketrio.mp3", new Color(202, 221, 251));
+		
+		private final int id;
+		private final String bgMainGUI;
+		final String bgTeamGUI;
+		private final String music;
+		private final Color color;
+		
+		Theme(int x, String a, String b, String c, Color i)
+		{
+			this.id = x;
+			this.bgMainGUI = a;
+			this.bgTeamGUI = b;
+			this.music = c;
+			this.color = i;
+		}
+		
+		public int ID() {
+			return this.id;
+		}
+		
+		public String MainGUI() {
+			return this.bgMainGUI;
+		}
+		
+		public String TeamGUI() {
+			return this.bgTeamGUI;
+		}
+		
+		public String Music() {
+			return this.music;
+		}
+		
+		public Color Color() {
+			return this.color;
+		}
+	}
+	
+	static Theme theme;
+	
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -169,11 +221,13 @@ public class MainGUI { // The main game window for RPG-SVG.
 	
 	
 	private void playMusic() {
+		
+		
+		
 		Platform.runLater(new Runnable() {
 			@Override public void run() {
 				
-		        
-		        final URL u = getClass().getResource("Media/Audio/gymbattle.mp3");
+		        final URL u = getClass().getResource("Media/Audio/" + theme.music);
 		        final Media hit = new Media(u.toString());
 		        mediaPlayer = new MediaPlayer(hit);
 		        mediaPlayer.play();
@@ -188,13 +242,19 @@ public class MainGUI { // The main game window for RPG-SVG.
 
 		battle = new Battle(team1, team2, random);
 
-		
-
-		
 		Image image = null;
 		
 		try{
-			ImageIcon i = new ImageIcon(this.getClass().getResource("Media/Images/background.jpeg"));
+			int j = (int)(Math.random() * 3);
+			for(Theme x: Theme.values())
+			{
+				if(j == x.ID())
+				{
+					theme = x;
+				}
+			}
+
+			ImageIcon i = new ImageIcon(this.getClass().getResource("Media/Images/" + theme.bgMainGUI));
 			image = i.getImage();
 		}
 		catch(Exception e)
@@ -211,16 +271,16 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		
 		@SuppressWarnings("unused")
-		final JFXPanel fxPanel = new JFXPanel();
+		final JFXPanel fxPanel = new JFXPanel();	//initializes JavaFX for MediaPlayer function
 		
 		
 		
 		
 		
 		if(team == 1)
-			frmMainGUI.setTitle("Random Pokemon Generator-Simulator Video Game SERVER");
+			frmMainGUI.setTitle("Random Pokemon Generator-Simulator Video Game");
 		else
-			frmMainGUI.setTitle("Random Pokemon Generator-Simulator Video Game CLIENT");
+			frmMainGUI.setTitle("Random Pokemon Generator-Simulator Video Game");
 		frmMainGUI.setBounds(150, 50, 800, 500);
 		frmMainGUI.setResizable(false);
 		frmMainGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -230,37 +290,49 @@ public class MainGUI { // The main game window for RPG-SVG.
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("1"), "m1p1");
 		mainpanel.getActionMap().put("m1p1", new SelectAttack(0, 1));
+		
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("2"), "m2p1");
 		mainpanel.getActionMap().put("m2p1", new SelectAttack(1, 1));
+		
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("3"), "m3p1");
 		mainpanel.getActionMap().put("m3p1", new SelectAttack(2, 1));
+		
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("4"), "m4p1");
 		mainpanel.getActionMap().put("m4p1", new SelectAttack(3, 1));
+		
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("7"), "m1p2");
 		mainpanel.getActionMap().put("m1p2", new SelectAttack(0, 2));
+		
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("8"), "m2p2");
 		mainpanel.getActionMap().put("m2p2", new SelectAttack(1, 2));
+		
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("9"), "m3p2");
 		mainpanel.getActionMap().put("m3p2", new SelectAttack(2, 2));
+		
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("0"), "m4p2");
 		mainpanel.getActionMap().put("m4p2", new SelectAttack(3, 2));
+		
 		mainpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
 				KeyStroke.getKeyStroke("B"), "begin");
 		mainpanel.getActionMap().put("begin", new BeginTurn());
 
+		
 		panelP1 = new JPanel(); // P1 Sprite Region
 		panelP1.setOpaque(false);
 		panelP1.setBounds(50, 23, 192, 192);
 		panelP1.setPreferredSize(new Dimension(192, 192));
 		lblPictureP1 = new JLabel();
-		panelP1.setBounds(50  + (192-team1.get(0).sprite1.getIconWidth())/2, 23 + (192-team1.get(0).sprite1.getIconHeight())/2, team1.get(0).sprite1.getIconWidth() + 10, team1.get(0).sprite1.getIconHeight() + 10);
+		panelP1.setBounds(50  + (192-team1.get(0).sprite1.getIconWidth())/2,
+						  23 + (192-team1.get(0).sprite1.getIconHeight())/2,
+						  team1.get(0).sprite1.getIconWidth() + 10,
+						  team1.get(0).sprite1.getIconHeight() + 10);
 		lblPictureP1.setIcon(team1.get(0).sprite1);
 		lblPictureP1.setToolTipText(team1.get(0).getFormattedHTMLStats());
 		panelP1.add(lblPictureP1);
@@ -272,13 +344,16 @@ public class MainGUI { // The main game window for RPG-SVG.
 		panelP2.setBounds(558, 23, 192, 192);
 		panelP2.setPreferredSize(new Dimension(192, 192));
 		lblPictureP2 = new JLabel();
-		panelP2.setBounds(558 + (192-team2.get(0).sprite2.getIconWidth())/2, 23 + (192-team2.get(0).sprite2.getIconHeight())/2, team2.get(0).sprite2.getIconWidth() + 10, team2.get(0).sprite2.getIconHeight() + 10);
+		panelP2.setBounds(558 + (192-team2.get(0).sprite2.getIconWidth())/2, 
+						  23 + (192-team2.get(0).sprite2.getIconHeight())/2, 
+						  team2.get(0).sprite2.getIconWidth() + 10, 
+						  team2.get(0).sprite2.getIconHeight() + 10);
 		lblPictureP2.setIcon(team2.get(0).sprite2);
 		lblPictureP2.setToolTipText(team2.get(0).getFormattedHTMLStats());
 		panelP2.add(lblPictureP2);
 		mainpanel.add(panelP2);
 		
-		/* Steven T. made statusPanel font bold and centered some base text */
+		
 		JScrollPane infoPane = new JScrollPane(
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -293,10 +368,10 @@ public class MainGUI { // The main game window for RPG-SVG.
 		txtInfo.setEditable(false);
 		txtInfo.setLineWrap(true);
 		txtInfo.setWrapStyleWord(true);
-		txtInfo.setText("-------BEGIN BATTLE!-------\n");
+		txtInfo.setText	("-------BEGIN BATTLE!-------\n");
 		appendText("\nPlayer 1 sent out " + team1.get(0).name + "!\n");
 		appendText("\nPlayer 2 sent out " + team2.get(0).name + "!\n");
-		appendText("\n----- Select your actions -----\n");
+		appendText		("\n-----Select your actions.-----\n");
 		infoPane.setViewportView(txtInfo);
 		infoPane.getViewport().setOpaque(false);
 
@@ -311,34 +386,51 @@ public class MainGUI { // The main game window for RPG-SVG.
 		mainpanel.add(lblHP2);
 
 		healthBarP1 = new JProgressBar(); // P1 Health Bar
+		healthBarP1.setStringPainted(true);
+		healthBarP1.setForeground(Color.GREEN);
 		healthBarP1.setBounds(50, 255, 225, 20);
+		healthBarP1.setUI(new BasicProgressBarUI() {
+		      protected Color getSelectionBackground() { return Color.BLACK; }
+		      protected Color getSelectionForeground() { return Color.BLACK; }
+		    });
 		healthBarP1.setValue(100);
 		mainpanel.add(healthBarP1);
 
 		healthBarP2 = new JProgressBar(); // P2 Health Bar
+		healthBarP2.setStringPainted(true);
+		healthBarP2.setForeground(Color.GREEN);
 		healthBarP2.setBounds(558, 255, 225, 20);
+		healthBarP2.setUI(new BasicProgressBarUI() {
+		      protected Color getSelectionBackground() { return Color.BLACK; }
+		      protected Color getSelectionForeground() { return Color.BLACK; }
+		    });
 		healthBarP2.setValue(100);
 		mainpanel.add(healthBarP2);
-
+		
+		
 		lblHealthP1 = new JLabel(team1.get(0).stats[0] + "/"
 				+ team1.get(0).stats[0]); // P1 Health Label
-		lblHealthP1.setFont(new Font("Helvetica", Font.PLAIN, 13));
+		lblHealthP1.setFont(new Font("Helvetica", Font.BOLD, 13));
+		lblHealthP1.setForeground(Color.BLACK);
 		lblHealthP1.setBounds(214, 283, 61, 16);
 		mainpanel.add(lblHealthP1);
 
 		lblHealthP2 = new JLabel(team2.get(0).stats[0] + "/"
 				+ team2.get(0).stats[0]); // P2 Health Label
-		lblHealthP2.setFont(new Font("Helvetica", Font.PLAIN, 13));
+		lblHealthP2.setFont(new Font("Helvetica", Font.BOLD, 13));
+		lblHealthP2.setForeground(Color.BLACK);
 		lblHealthP2.setBounds(722, 283, 61, 16);
 		mainpanel.add(lblHealthP2);
 
 		lblP1 = new JLabel(team1.get(0).name); // P1 Name Label
 		lblP1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblP1.setForeground(Color.BLACK);
 		lblP1.setBounds(22, 220, 220, 23);
 		mainpanel.add(lblP1);
 
 		lblP2 = new JLabel(team2.get(0).name); // P2 Name Label
 		lblP2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblP2.setForeground(Color.BLACK);
 		lblP2.setBounds(529, 220, 221, 23);
 		mainpanel.add(lblP2);
 
@@ -360,8 +452,12 @@ public class MainGUI { // The main game window for RPG-SVG.
 					int target = 0;
 					for(int j = 0; j < p1Buttons.length; j++)
 					{
-						if(e.getSource().equals(p1Buttons[j]));
-						target = j;
+						if(e.getSource().equals(p1Buttons[j]))
+						{
+							target = j;
+							break;
+						}
+							
 					}
 					selectMove(target, 1);
 				}});
@@ -394,8 +490,11 @@ public class MainGUI { // The main game window for RPG-SVG.
 					int target = 0;
 					for(int j = 0; j < p2Buttons.length; j++)
 					{
-						if(e.getSource().equals(p2Buttons[j]));
-						target = j;
+						if(e.getSource().equals(p2Buttons[j]))
+						{
+							target = j;
+							break;
+						}
 					}
 					selectMove(target, 2);
 				}});
@@ -411,7 +510,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 			mainpanel.add(p2Buttons[i]);
 		}
 		
-		Color background = new Color(255, 250, 245);
+		Color background = theme.Color();
 		
 		for(int i = 0; i < 4; i++)
 		{
@@ -421,7 +520,9 @@ public class MainGUI { // The main game window for RPG-SVG.
 
 		btnP1Team = new JButton("Team Status / Switch Pokemon"); 	// Team 1 TeamGUI Opener
 		btnP1Team.setFont(new Font("Helvetica", Font.BOLD, 13));
-		btnP1Team.setBackground(new Color(255, 250, 245));
+		btnP1Team.setForeground(Color.BLACK);
+		btnP1Team.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		btnP1Team.setBackground(background);
 		btnP1Team.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TeamGUI(1);
@@ -431,7 +532,9 @@ public class MainGUI { // The main game window for RPG-SVG.
 
 		btnP2Team = new JButton("Team Status / Switch Pokemon"); 	// Team 2 TeamGUI Opener
 		btnP2Team.setFont(new Font("Helvetica", Font.BOLD, 13));
-		btnP2Team.setBackground(new Color(255, 250, 245));
+		btnP2Team.setForeground(Color.BLACK);
+		btnP2Team.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+		btnP2Team.setBackground(background);
 		btnP2Team.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TeamGUI(2);
@@ -441,11 +544,13 @@ public class MainGUI { // The main game window for RPG-SVG.
 
 		
 
-		JButton btnSaveLoad = new JButton("SAVE / LOAD");
+		JButton btnSaveLoad = new JButton("SAVE / LOAD");	//Save/Load Utility Opener
 		btnSaveLoad.setBounds(341, 430, 117, 29);
+		btnSaveLoad.setForeground(Color.BLACK);
+		btnSaveLoad.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		btnSaveLoad.setEnabled(true);
 		btnSaveLoad.setFont(new Font("Helvetica", Font.BOLD, 12));
-		btnSaveLoad.setBackground(new Color(255, 250, 245));
+		btnSaveLoad.setBackground(background);
 		btnSaveLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new SaveGUI(1);
@@ -460,8 +565,6 @@ public class MainGUI { // The main game window for RPG-SVG.
 		lblStatusP2 = new JLabel("");
 		lblStatusP2.setBounds(753, 227, 30, 16);
 		mainpanel.add(lblStatusP2);
-		
-		/* END EDIT STEVENZC 10-31-13*/
 		
 		
 		//Enable the right buttons
@@ -510,8 +613,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		}
 	}
 	
-	/* BEGIN EDIT Steven T. victory fix, see Battle class 11-3-13 */
-	public static void refresh() // The light refresh method after a battle turn
+	
+	public static void refresh() 	// The light refresh method after a battle turn
 									// has been completed.
 	{
 
@@ -521,11 +624,13 @@ public class MainGUI { // The main game window for RPG-SVG.
 
 		if (team1.get(0).currenthealth != 0
 				&& team2.get(0).currenthealth != 0)
-			appendText("\n----- Select your actions -----\n");
+			appendText("\n-----Select your actions.-----\n");
 
 	}
-
-	public static void switchRefresh(Pokemon switchout, Pokemon switchin) // Refreshes the main window after a player switches Pokemon.
+	
+	
+	// Refreshes the main window after a player switches Pokemon.
+	public static void switchRefresh(Pokemon switchout, Pokemon switchin) 
 	{
 		battle.removeTriggers(switchout);
 		battle.addTrigger(switchin.ability);
@@ -537,8 +642,14 @@ public class MainGUI { // The main game window for RPG-SVG.
 		lblPictureP1.setIcon(team1.get(0).sprite1);
 		lblPictureP2.setIcon(team2.get(0).sprite2);
 		
-		panelP1.setBounds(50  + (192-team1.get(0).sprite1.getIconWidth())/2, 23 + (192-team1.get(0).sprite1.getIconHeight())/2, team1.get(0).sprite1.getIconWidth() + 10, team1.get(0).sprite1.getIconHeight() + 10);
-		panelP2.setBounds(558 + (192-team2.get(0).sprite2.getIconWidth())/2, 23 + (192-team2.get(0).sprite2.getIconHeight())/2, team2.get(0).sprite2.getIconWidth() + 10, team2.get(0).sprite2.getIconHeight() + 10);
+		panelP1.setBounds(50  + (192-team1.get(0).sprite1.getIconWidth())/2, 
+						  23 + (192-team1.get(0).sprite1.getIconHeight())/2, 
+						  team1.get(0).sprite1.getIconWidth() + 10, 
+						  team1.get(0).sprite1.getIconHeight() + 10);
+		panelP2.setBounds(558 + (192-team2.get(0).sprite2.getIconWidth())/2, 
+						  23 + (192-team2.get(0).sprite2.getIconHeight())/2, 
+						  team2.get(0).sprite2.getIconWidth() + 10, 
+						  team2.get(0).sprite2.getIconHeight() + 10);
 
 		lblP1.setText(team1.get(0).name);
 		lblP2.setText(team2.get(0).name);
@@ -604,7 +715,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		}
 	}
 	
-	public static Color getBtnBackgrounds(Move m)	//Chooses the correct Color for a button, based on the move's type int
+	//Chooses the correct Color for a button, based on the move's type int
+	public static Color getBtnBackgrounds(Move m)	
 	{
 		return m.mtype.color();
 	}
@@ -641,11 +753,13 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		for(int i = 0; i < 4; i++)
 		{
-			p1Buttons[i].setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team1.get(0).moves[i]), 3));
+			p1Buttons[i].setBorder(BorderFactory.createLineBorder(
+					getBtnBackgrounds(team1.get(0).moves[i]), 3));
 		}
 		for(int i = 0; i < 4; i++)
 		{
-			p2Buttons[i].setBorder(BorderFactory.createLineBorder(getBtnBackgrounds(team2.get(0).moves[i]), 3));
+			p2Buttons[i].setBorder(BorderFactory.createLineBorder(
+					getBtnBackgrounds(team2.get(0).moves[i]), 3));
 		}
 		
 	}

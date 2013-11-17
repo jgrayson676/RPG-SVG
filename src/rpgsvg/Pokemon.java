@@ -31,12 +31,12 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
     	FIGHTING	(7,	255, 	0, 		0	)	,
     	POISON		(8,	228, 	1, 		236 )	,
     	GROUND		(9,	200, 	121, 	19	)	,
-    	FLYING		(10,91, 	0, 		202 )	,
+    	FLYING		(10,178, 	130,	242 )	,
     	PSYCHIC		(11,255, 	56, 	104 )	,
     	BUG			(12,119, 	211, 	0	)	,
     	ROCK		(13,167, 	112, 	26	)	,
     	GHOST		(14,138, 	69, 	197 )	,
-    	DRAGON		(15,0, 		180, 	255 )	,
+    	DRAGON		(15,133, 	0, 		251 )	,
     	DARK		(16,100, 	100, 	100 )	,
     	STEEL		(17,88, 	96, 	124 )	;
     	
@@ -82,13 +82,15 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
 	ImageIcon sprite2;
 	ImageIcon minisprite;
 	public Move[] moves = new Move[4];
-	public int[] stats = new int[8]; 							//0-HP, 1-ATTACK, 2-DEFENSE, 3-SPECIAL, 4-SPECIAL DEFENSE, 5-SPEED, 6-TYPE1, 7-TYPE2
+	public int[] stats = new int[8]; 
+	//0-HP, 1-ATTACK, 2-DEFENSE, 3-SPECIAL, 4-SPECIAL DEFENSE, 5-SPEED, 6-TYPE1, 7-TYPE2
 	
 	public Type type1;
 	public Type type2;
 	
 	public int currenthealth;
-	public int[] statModifiers = {0, 0, 0, 0, 0, 0, 0, 1}; 	//0-ATTACK, 1-DEFENSE, 2-SPECIAL, 3-SPECIAL DEFENSE, 4-SPEED, 5-EVASION, 6-ACCURACY, 7-CRITSTAGE
+	public int[] statModifiers = {0, 0, 0, 0, 0, 0, 0, 1}; 	
+	//0-ATTACK, 1-DEFENSE, 2-SPECIAL, 3-SPECIAL DEFENSE, 4-SPEED, 5-EVASION, 6-ACCURACY, 7-CRITSTAGE
 	public int status;
 	public int statusTimer = 0;
 	public Trigger ability;
