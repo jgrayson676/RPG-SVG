@@ -13,15 +13,13 @@ public abstract class Move implements Serializable{		//Object specifications for
 	
 	/*FIELDS*/
 	private boolean isPhysical;
-	private int type;
+	private Type type;
 	private int damage;
 	private int accuracy;
 	private int priority;
-	
-	public Type mtype;
-	
-	public int critstage; //0 is normal, 1 is high critical hit ratio
-	public int pp;
+		
+	private int critstage; //0 is normal, 1 is high critical hit ratio
+	private int pp;
 	
 	/*CONSTRUCTORS*/
 	
@@ -31,9 +29,13 @@ public abstract class Move implements Serializable{		//Object specifications for
 	
 	/* METHODS */
 	
-	public String getType()		//returns the name of the type of the move.
+	public String getGUIString()		//returns the name of the type of the move.
 	{
-		return this.mtype.toGUIString();
+		return this.type.toGUIString();
+	}
+	
+	public Type getType() {
+		return this.type;
 	}
 	
 	public boolean getContact() {
@@ -41,7 +43,7 @@ public abstract class Move implements Serializable{		//Object specifications for
 	}
 	
 	public int getAttackType(){
-		return this.type;
+		return this.type.type();
 	}
 	
 	public int getDamage(){
@@ -54,6 +56,14 @@ public abstract class Move implements Serializable{		//Object specifications for
 	
 	public int getPriority(){
 		return this.priority;
+	}
+	
+	public int getCritStage(){
+		return this.critstage;
+	}
+	
+	public int getPP(){
+		return this.pp;
 	}
 	
 	public void run(){

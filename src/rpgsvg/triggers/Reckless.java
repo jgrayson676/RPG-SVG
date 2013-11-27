@@ -18,7 +18,7 @@ public class Reckless extends Trigger{
 	public void run(){
 		Modifier mod = new Modifier();
 		if(Battle.m.self.recoil > 0){
-			mod.attack *= 1.2;
+			mod.setAttack(mod.getAttack() * 1.2);
 		}
 		parent.applyModifier(mod);
 	}

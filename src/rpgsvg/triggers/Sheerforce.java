@@ -20,7 +20,7 @@ public class Sheerforce extends Trigger{
 		Modifier modifier = new Modifier();
 		if(Battle.m.effectChance > 0 && Battle.m.getDamage() > 0){
 			Battle.m.effectChance = 0;
-			modifier.attack *= 1.3;
+			modifier.setAttack(modifier.getAttack() * 1.3);
 		}
 		
 		parent.applyModifier(modifier);

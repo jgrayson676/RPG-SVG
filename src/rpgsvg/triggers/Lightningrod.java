@@ -20,7 +20,7 @@ public class Lightningrod extends Trigger{
 	
 		Modifier modifier = new Modifier();
 		if(Battle.m.getAttackType() == 4){
-			modifier.attack = 0;
+			modifier.setAttack(0);
 			modifier.statModifiers[2] = 1;
 		}
 		

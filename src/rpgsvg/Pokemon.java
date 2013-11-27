@@ -237,21 +237,21 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
 	    int beforehealth = currenthealth;
 		if(m == null)
 	    	return 0;
-		Battle.tempAttackMod *= m.attack;
-	    Battle.tempDefenseMod *= m.defense;
+		Battle.tempAttackMod *= m.getAttack();
+	    Battle.tempDefenseMod *= m.getDefense();
 	    
-	    statModifiers[0] += m.statModifiers[0];
-	    statModifiers[1] += m.statModifiers[1];
-        statModifiers[2] += m.statModifiers[2];
-        statModifiers[3] += m.statModifiers[3];
-        statModifiers[4] += m.statModifiers[4];
-        statModifiers[5] += m.statModifiers[5];
-        statModifiers[6] += m.statModifiers[6];
-        statModifiers[7] += m.statModifiers[7];
+	    statModifiers[0] += m.getStatModifier(Modifier.ATTACK);
+	    statModifiers[1] += m.getStatModifier(Modifier.DEFENSE);
+        statModifiers[2] += m.getStatModifier(Modifier.SPECIAL);
+        statModifiers[3] += m.getStatModifier(Modifier.SPECIALDEFENSE);
+        statModifiers[4] += m.getStatModifier(Modifier.SPEED);
+        statModifiers[5] += m.getStatModifier(Modifier.EVASION);
+        statModifiers[6] += m.getStatModifier(Modifier.ACCURACY);
+        statModifiers[7] += m.getStatModifier(Modifier.CRIT);
         
         int oldhealth = currenthealth;
-        currenthealth += m.hp * stats[0];
-        currenthealth -= m.recoil * Battle.finaldamage;
+        currenthealth += m.getHp() * stats[0];
+        currenthealth -= m.getRecoil() * Battle.finaldamage;
         
         if(currenthealth < 0)
         		currenthealth = 0;
@@ -259,60 +259,60 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
         if(currenthealth > stats[0])
             currenthealth = stats[0];
         
-        if(m.addstatus != NO_STATUS && this.status == NO_STATUS)
+        if(m.getAddstatus() != NO_STATUS && this.status == NO_STATUS)
         {
-        	MainGUI.txtInfo.append("\n" + this.name + " was " + Modifier.getStatusText(m.addstatus) + "!\n");
-            this.status = m.addstatus;
+        	MainGUI.txtInfo.append("\n" + this.name + " was " + Modifier.getStatusText(m.getAddstatus()) + "!\n");
+            this.status = m.getAddstatus();
         	this.setStatusText();
             if(this.status == SLEEP){
                 statusTimer = (int)(Battle.random.nextDouble() * 4) + 1; //Using the 4th gen sleep (5th gen is weird http://bulbapedia.bulbagarden.net/wiki/Sleep_(status_ailment)#Generation_IV)             
             }
         }
         
-        if(team1 && (m.hp != 0 || (m.recoil != 0 && Battle.finaldamage != 0)))
+        if(team1 && (m.getHp() != 0 || (m.getRecoil() != 0 && Battle.finaldamage != 0)))
         {
         	MainGUI.healthBarP1.setValue((int)(currenthealth * 100 / stats[0]));
         	MainGUI.lblHealthP1.setText(currenthealth + "/" + stats[0]);
-        	if(m.hp > 0)
+        	if(m.getHp() > 0)
         	{
         		int x = currenthealth - oldhealth;
         		MainGUI.txtInfo.append("\n" + name + " gained " + x + " HP!\n");
         	}
-        	if(m.hp < 0)
+        	if(m.getHp() < 0)
         	{
         		int x = oldhealth - currenthealth;
         		MainGUI.txtInfo.append("\n" + name + " lost " + x + " HP!\n");
         	}
-            if(m.recoil > 0)
+            if(m.getRecoil() > 0)
             {
                 MainGUI.txtInfo.append("\n" + name + " was hit with recoil!\n");
             }
-            if(m.recoil < 0)
+            if(m.getRecoil() < 0)
             {
                 MainGUI.txtInfo.append("\n" + Battle.defender.name + " had its energy drained!\n");
             }
         		
         }
         
-        if(!team1 && (m.hp != 0 || (m.recoil != 0 && Battle.finaldamage != 0)))
+        if(!team1 && (m.getHp() != 0 || (m.getRecoil() != 0 && Battle.finaldamage != 0)))
         {
         	MainGUI.healthBarP2.setValue((int)(currenthealth * 100 / stats[0]));
         	MainGUI.lblHealthP2.setText(currenthealth + "/" + stats[0]);
-        	if(m.hp > 0)
+        	if(m.getHp() > 0)
         	{
         		int x = currenthealth - oldhealth;
         		MainGUI.txtInfo.append("\n" + name + " gained " + x + " HP!\n");
         	}
-        	if(m.hp < 0)
+        	if(m.getHp() < 0)
         	{
         		int x = oldhealth - currenthealth;
         		MainGUI.txtInfo.append("\n" + name + " lost " + x + " HP!\n");
         	}
-        	if(m.recoil > 0)
+        	if(m.getRecoil() > 0)
             {
                 MainGUI.txtInfo.append("\n" + name + " was hit with recoil!\n");
             }
-            if(m.recoil < 0)
+            if(m.getRecoil() < 0)
             {
                 MainGUI.txtInfo.append("\n" + Battle.defender.name + " had its energy drained!\n");
             }
@@ -333,23 +333,23 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
         		statModifiers[i] = 6;
         		MainGUI.txtInfo.append("\n" + name + "'s " + Modifier.getStat(i) + " cannot go any higher!\n");
         	}
-        	else if(m.statModifiers[i] != 0)
-        		Modifier.print(i, m.statModifiers[i], this);
+        	else if(m.getStatModifier(i) != 0)
+        		Modifier.print(i, m.getStatModifier(i), this);
         }
         if(statModifiers[7] > 5)
           statModifiers[7] = 5;
-        if(m.hp == 0)
+        if(m.getHp() == 0)
         	return 0;
         else
-        	return (int)Math.abs(m.hp) * 1000;
+        	return (int)Math.abs(m.getHp()) * 1000;
 	}
 	
 	public int calculateModTime(Modifier m)		//calculates the maximum amount of time it will take to run applyModifier for the selected modifier.
 	{
-		if(m.hp == 0)
+		if(m.getHp() == 0)
         	return 0;
         else
-        	return (int)Math.abs(m.hp) * 1000;
+        	return (int)Math.abs(m.getHp()) * 1000;
 	}
 	
 	public void deleteImages()

@@ -7,35 +7,43 @@ public class Modifier implements Serializable{		//A storage object used to help 
 
 	
 	private static final long serialVersionUID = 3;
-	public double attack;
-	public double defense;
-	public int addstatus;
-	public int[] statModifiers = {0, 0, 0, 0, 0, 0, 0, 0};	//0-ATTACK, 1-DEFENSE, 2-SPECIAL, 3-SPECIAL DEFENSE, 4-SPEED, 5-EVASION, 6-ACCURACY, 7-CRIT
-	public double hp;
-	public String dialog;
-	public boolean deleteTrigger;
-	public boolean isCrit;
-	public double recoil;
+	private double attack;
+	private double defense;
+	private int addstatus;
+	private int[] statModifiers = {0, 0, 0, 0, 0, 0, 0, 0};	//0-ATTACK, 1-DEFENSE, 2-SPECIAL, 3-SPECIAL DEFENSE, 4-SPEED, 5-EVASION, 6-ACCURACY, 7-CRIT
+	private double hp;
+	private String dialog;
+	private boolean deleteTrigger;
+	private boolean isCrit;
+	private double recoil;
 	
+	public static final int ATTACK = 0;
+	public static final int DEFENSE = 1;
+	public static final int SPECIAL = 2;
+	public static final int SPECIALDEFENSE = 3;
+	public static final int SPEED = 4;
+	public static final int EVASION = 5;
+	public static final int ACCURACY = 6;
+	public static final int CRIT = 7;
 	
 	public Modifier()
 	{
-		attack = 1;
-		defense = 1;
-		addstatus = Pokemon.NO_STATUS;
-		hp = 0;
-		dialog = "";
-		deleteTrigger = false;
-		isCrit = false;
-		recoil = 0;
+		setAttack(1);
+		setDefense(1);
+		setAddstatus(Pokemon.NO_STATUS);
+		setHp(0);
+		setDialog("");
+		setDeleteTrigger(false);
+		setCrit(false);
+		setRecoil(0);
 	}
 	
 			//										1		2	  3		  4		 5		6	   7	   8       9
 	public Modifier(double a, double b,    int c, int d, int e, int f, int g, int h, int i, int j, int k, double l, String m, boolean n)
 	{		//		ATTACK	  DEFENSE	 STATUS		ATK	   DEF	  SPC	SPDEF  SPEED   EVAD   ACC	 CRIT	  HP      DIALOG	 DELTRG		
-		attack = a;
-		defense = b;
-		addstatus = c;
+		setAttack(a);
+		setDefense(b);
+		setAddstatus(c);
 		statModifiers[0] = d;
 		statModifiers[1] = e;
 		statModifiers[2] = f;
@@ -44,18 +52,18 @@ public class Modifier implements Serializable{		//A storage object used to help 
 		statModifiers[5] = i;
 		statModifiers[6] = j;
 		statModifiers[7] = k;
-		hp = l;
-		dialog = m;
-		deleteTrigger = n;
-        recoil = 0;
+		setHp(l);
+		setDialog(m);
+		setDeleteTrigger(n);
+        setRecoil(0);
 	}
     
     //Extra constructor for moves with recoil that I made because I was lazy
     public Modifier(double a, double b,    int c, int d, int e, int f, int g, int h, int i, int j, int k, double l, String m, boolean n, double o)
 	{		//		ATTACK	  DEFENSE	 STATUS		ATK	   DEF	  SPC	SPDEF  SPEED   EVAD   ACC	 CRIT	  HP      DIALOG	 DELTRG  RECOIL
-		attack = a;
-		defense = b;
-		addstatus = c;
+		setAttack(a);
+		setDefense(b);
+		setAddstatus(c);
 		statModifiers[0] = d;
 		statModifiers[1] = e;
 		statModifiers[2] = f;
@@ -64,10 +72,10 @@ public class Modifier implements Serializable{		//A storage object used to help 
 		statModifiers[5] = i;
 		statModifiers[6] = j;
 		statModifiers[7] = k;
-		hp = l;
-		dialog = m;
-		deleteTrigger = n;
-        recoil = o;
+		setHp(l);
+		setDialog(m);
+		setDeleteTrigger(n);
+        setRecoil(o);
 	}
 	
 	public static double getStatMultiplier(int n) //generic calculation for stat multipliers
@@ -169,4 +177,80 @@ public class Modifier implements Serializable{		//A storage object used to help 
 		return null;
 	}
 
+	public double getAttack() {
+		return attack;
+	}
+
+	public void setAttack(double attack) {
+		this.attack = attack;
+	}
+
+	public double getDefense() {
+		return defense;
+	}
+
+	public void setDefense(double defense) {
+		this.defense = defense;
+	}
+
+	public int getAddstatus() {
+		return addstatus;
+	}
+
+	public void setAddstatus(int addstatus) {
+		this.addstatus = addstatus;
+	}
+	
+	public int getStatModifier(int pos){
+		if(pos >= 0 && pos < statModifiers.length) {
+				return this.statModifiers[pos];
+		}
+		return 0;
+	}
+	
+	public void setStatModifier(int pos, int amt){
+		if(pos >= 0 && pos < statModifiers.length){
+			this.statModifiers[pos] = amt;
+		}
+	}
+
+	public double getHp() {
+		return hp;
+	}
+
+	public void setHp(double hp) {
+		this.hp = hp;
+	}
+
+	public String getDialog() {
+		return dialog;
+	}
+
+	public void setDialog(String dialog) {
+		this.dialog = dialog;
+	}
+
+	public boolean isDeleteTrigger() {
+		return deleteTrigger;
+	}
+
+	public void setDeleteTrigger(boolean deleteTrigger) {
+		this.deleteTrigger = deleteTrigger;
+	}
+
+	public boolean isCrit() {
+		return isCrit;
+	}
+
+	public void setCrit(boolean isCrit) {
+		this.isCrit = isCrit;
+	}
+
+	public double getRecoil() {
+		return recoil;
+	}
+
+	public void setRecoil(double recoil) {
+		this.recoil = recoil;
+	}
 }

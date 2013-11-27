@@ -20,7 +20,8 @@ public class FireBlast extends Move {
 	public void run() {
 		if (! Battle.getDefender().ability.getClass().getName().equals("Flashfire")){
 			if(Battle.random.nextDouble() < 0.1){
-				Modifier m = new Modifier(1, 1, Pokemon.BURN, 0, 0, 0, 0, 0, 0, 0, 0, 1, null, false);
+				Modifier m = new Modifier();
+				m.setAddstatus(Pokemon.BURN);
 				Battle.getDefender().applyModifier(m);
 			}
 		}

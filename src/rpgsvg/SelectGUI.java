@@ -52,7 +52,6 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	
 	Move earthquake;
 	Move surf;
-	Move tackle;
 	Move fireblast;
 	Move focusblast;
 	Move icebeam;
@@ -245,7 +244,6 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		
 	    earthquake 		= new Move("Earthquake", 	true, 9, 100, 100, null, null, 0, 0, 0, 10);
 	    surf 			= new Move("Surf", 			false, 3, 95, 100, null, null, 0, 0, 0, 15);
-	    tackle 			= new Move("Tackle", 		true, 1, 50, 95, null, null, 0, 0, 0, 35);
 	    fireblast 		= new Move("Fire Blast", 	false, 2, 120, 85, null, burn, 0.1, 0, 0, 5);
 	    focusblast 		= new Move("Focus Blast", 	false, 7, 120, 70, null, lowerspecialdef, 0.1, 0, 0, 5);
 	    icebeam 		= new Move("Ice Beam", 		false, 6, 90, 100, null, freeze, 0.1, 0, 0, 10);

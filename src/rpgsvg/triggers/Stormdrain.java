@@ -20,7 +20,7 @@ public class Stormdrain extends Trigger{
 	
 		Modifier modifier = new Modifier();
 		if(Battle.m.getAttackType() == 3){
-			modifier.attack = 0;
+			modifier.setAttack(0);
 			modifier.statModifiers[2] = 1;
 		}
 		

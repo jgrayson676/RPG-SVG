@@ -20,7 +20,7 @@ public class Voltabsorb extends Trigger{
 		if(Battle.m.getAttackType() == 4){
 			Battle.finaldamage = 0;
 			Modifier mod = new Modifier();
-			mod.hp = 0.25;
+			mod.setHp(0.25);
 			parent.applyModifier(mod);
 		}
 	}

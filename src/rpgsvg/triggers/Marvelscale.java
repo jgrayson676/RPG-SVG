@@ -19,7 +19,7 @@ public class Marvelscale extends Trigger{
 	public void run(){
 		Modifier mod = new Modifier();
 		if (parent.status !=0){
-			mod.defense *= 1.5;
+			mod.setDefense(mod.getDefense() * 1.5);
 		}
 		parent.applyModifier(mod);
 	}

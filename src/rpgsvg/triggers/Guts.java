@@ -19,7 +19,7 @@ public class Guts extends Trigger{
 	public void run(){
 		Modifier mod = new Modifier();
 		if(parent.status != 0){
-			mod.attack *=1.5;
+			mod.setAttack(mod.getAttack() * 1.5);
 		}
 		parent.applyModifier(mod);
 	}
