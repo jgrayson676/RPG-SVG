@@ -14,6 +14,8 @@ import java.util.Random;
 
 
 
+
+
 import javax.swing.JFrame;
 import javax.sound.midi.*;
 import javax.swing.AbstractAction;
@@ -25,6 +27,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+
+
 
 
 
@@ -43,6 +47,8 @@ import java.awt.Image;
 import javax.swing.JProgressBar;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import network.NetworkObject;
@@ -151,7 +157,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		GROUND	(0, "MainGUIground.jpeg", "TeamGUIground.jpeg", "gymextended.mp3", new Color(255, 250, 245)),
 		ROCK	(1, "MainGUIrock.jpeg", "TeamGUIrock.jpeg", "johtochampion.mp3", new Color(227, 227, 227)),
-		WATER	(2, "MainGUIwater.jpeg", "TeamGUIwater.jpeg", "laketrio.mp3", new Color(202, 221, 251));
+		WATER	(2, "MainGUIwater.jpeg", "TeamGUIwater.jpeg", "laketrio.mp3", new Color(202, 221, 251)),
+		GRASS	(3, "MainGUIgrass.jpeg", "TeamGUIgrass.jpeg", "nbattle.mp3", new Color(215, 252, 191));
 		
 		private final int id;
 		private final String bgMainGUI;
@@ -253,7 +260,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 					theme = x;
 				}
 			}
-
+			theme = Theme.GRASS;
 			ImageIcon i = new ImageIcon(this.getClass().getResource("Media/Images/" + theme.bgMainGUI));
 			image = i.getImage();
 		}
@@ -389,6 +396,18 @@ public class MainGUI { // The main game window for RPG-SVG.
 		healthBarP1.setStringPainted(true);
 		healthBarP1.setForeground(Color.GREEN);
 		healthBarP1.setBounds(50, 255, 225, 20);
+		
+		healthBarP1.addChangeListener(new ChangeListener() {
+		    public void stateChanged(ChangeEvent evt) {
+		    	if(healthBarP1.getValue() > 45)
+		    		healthBarP1.setForeground(Color.GREEN);
+		    	else if(healthBarP1.getValue() > 15)
+		    		healthBarP1.setForeground(Color.YELLOW);
+		    	else
+		    		healthBarP1.setForeground(Color.RED);
+		    }
+		    });
+		
 		healthBarP1.setUI(new BasicProgressBarUI() {
 		      protected Color getSelectionBackground() { return Color.BLACK; }
 		      protected Color getSelectionForeground() { return Color.BLACK; }
@@ -400,6 +419,18 @@ public class MainGUI { // The main game window for RPG-SVG.
 		healthBarP2.setStringPainted(true);
 		healthBarP2.setForeground(Color.GREEN);
 		healthBarP2.setBounds(558, 255, 225, 20);
+		
+		healthBarP2.addChangeListener(new ChangeListener() {
+		    public void stateChanged(ChangeEvent evt) {
+		    	if(healthBarP2.getValue() > 45)
+		    		healthBarP2.setForeground(Color.GREEN);
+		    	else if(healthBarP2.getValue() > 15)
+		    		healthBarP2.setForeground(Color.YELLOW);
+		    	else
+		    		healthBarP2.setForeground(Color.RED);
+		    }
+		    });
+		
 		healthBarP2.setUI(new BasicProgressBarUI() {
 		      protected Color getSelectionBackground() { return Color.BLACK; }
 		      protected Color getSelectionForeground() { return Color.BLACK; }

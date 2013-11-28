@@ -23,9 +23,9 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
     public enum Type {
     	
     	NORMAL		(1,	191,	185, 	139 )	,
-    	FIRE		(2,	255, 	102, 	139 )	,	
+    	FIRE		(2,	255, 	176, 	0 	)	,	
     	WATER		(3,	0, 		191, 	235 )	,
-    	ELECTRIC	(4,	241, 	189, 	0	)	,
+    	ELECTRIC	(4,	255, 	224, 	81	)	,
     	GRASS		(5,	0, 		254, 	85	)	,
     	ICE			(6,	0, 		236, 	223 )	,
     	FIGHTING	(7,	255, 	0, 		0	)	,
@@ -139,7 +139,7 @@ public class Pokemon implements Serializable{		//Object specifications for indiv
 	public void addImages()	//used when a user retrieves Pokemon information from SelectGUI, or when the MainGUI is initialized, to save file i/o time.
 	{
 		 try{
-	          sprite1 = new ImageIcon(this.getClass().getResource("Media/Images/" + name.toLowerCase() + "flip.gif"));
+	          sprite1 = new MirrorImageIcon(this.getClass().getResource("Media/Images/" + name.toLowerCase() + ".gif"));
 	          sprite2 = new ImageIcon(this.getClass().getResource("Media/Images/" + name.toLowerCase() + ".gif"));
 	          minisprite = new ImageIcon(this.getClass().getResource("Media/Images/" + name.toLowerCase() + "mini.png"));
 	        } 

@@ -13,6 +13,8 @@ import java.awt.Image;
 
 import javax.swing.JProgressBar;
 import javax.swing.JButton;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import java.awt.event.ActionListener;
@@ -143,6 +145,23 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 			healthBars[i].setUI(new BasicProgressBarUI() {
 			      protected Color getSelectionBackground() { return Color.black; }
 			      protected Color getSelectionForeground() { return Color.black; }
+			    });
+			
+			healthBars[i].addChangeListener(new ChangeListener() {
+			    public void stateChanged(ChangeEvent evt) {
+			    for(int i = 0; i < healthBars.length; i++)	
+			    {
+			    	if(healthBars[i] != null)
+			    	{
+			    		if(healthBars[i].getValue() > 45)
+			    		healthBars[i].setForeground(Color.GREEN);
+			    	else if(healthBars[i].getValue() > 15)
+			    		healthBars[i].setForeground(Color.YELLOW);
+			    	else
+			    		healthBars[i].setForeground(Color.RED);
+			    	}
+			    }	
+			    }
 			    });
 			
 			if(teamsize <= i)

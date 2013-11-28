@@ -3,8 +3,13 @@ package rpgsvg;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.application.Platform;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -45,7 +50,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
     public static int finaldamage;
     public static boolean p1Faster;
     public static boolean pokemonAttacks = true;
-	
+	static MediaPlayer victoryplayer;
     
 	public static Timer timer1 = new Timer(10, new ActionListener() {		//decrements Player 1's health bar and health text display to the targethealth1 value.
         public void actionPerformed(ActionEvent evt) {
@@ -120,8 +125,21 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 						c = false;
 				}
 				if (c) {
+					Platform.runLater(new Runnable() {
+						@Override public void run() {
+							
+					        final URL u = getClass().getResource("Media/Audio/victory.mp3");
+					        final Media hit = new Media(u.toString());
+					        victoryplayer = new MediaPlayer(hit);
+					        MainGUI.mediaPlayer.stop();
+					        victoryplayer.play();
+					        
+					        victoryplayer.setCycleCount(1);
+					      }
+					});
 					JOptionPane.showMessageDialog(MainGUI.frmMainGUI, "P1 Victory!", "VICTORY",
 							2, MainGUI.team1.get(0).sprite1);
+					
 					System.exit(0);
 				}
 				else if(MainGUI.team == 2 || MainGUI.team == 0) new TeamGUI(2);
@@ -135,8 +153,21 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 						b = false;
 				}
 				if (b) {
+					Platform.runLater(new Runnable() {
+						@Override public void run() {
+							
+					        final URL u = getClass().getResource("Media/Audio/victory.mp3");
+					        final Media hit = new Media(u.toString());
+					        victoryplayer = new MediaPlayer(hit);
+					        MainGUI.mediaPlayer.stop();
+					        victoryplayer.play();
+					        
+					        victoryplayer.setCycleCount(1);
+					      }
+					});
 					JOptionPane.showMessageDialog(MainGUI.frmMainGUI, "P2 Victory!", "VICTORY",
 							2, MainGUI.team2.get(0).sprite2);
+					
 					System.exit(0);
 				}
 				else if(MainGUI.team == 1 || MainGUI.team == 0) new TeamGUI(1);
