@@ -116,9 +116,9 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Move explosion;
 	Move drainpunch;
 	Move superpower;
-	Move flail;
+	Move flail;		//need implement
 	Move blizzard;
-	Move hyperfang;
+	Move hyperfang;	//need flinch
 	Move aquajet;
 	
 	Move calmmind;
