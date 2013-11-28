@@ -16,6 +16,7 @@ import java.util.Random;
 
 
 
+
 import javax.swing.JFrame;
 import javax.sound.midi.*;
 import javax.swing.AbstractAction;
@@ -27,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+
 
 
 
@@ -151,6 +153,9 @@ public class MainGUI { // The main game window for RPG-SVG.
 	private static Random random;
 	
 	static MediaPlayer mediaPlayer;
+	static MediaPlayer normalPlayer;
+	static MediaPlayer superPlayer;
+	static MediaPlayer resistPlayer;
 
 
 	public enum Theme {
@@ -244,6 +249,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		});
 	}
 	
+	
+	
 	/* METHODS */
 	private void initialize() {
 
@@ -280,7 +287,22 @@ public class MainGUI { // The main game window for RPG-SVG.
 		@SuppressWarnings("unused")
 		final JFXPanel fxPanel = new JFXPanel();	//initializes JavaFX for MediaPlayer function
 		
-		
+		Platform.runLater(new Runnable() {
+			@Override public void run() {
+				
+		        final URL normal = getClass().getResource("Media/Audio/normalhit.mp3");
+		        final Media hit = new Media(normal.toString());
+		        normalPlayer = new MediaPlayer(hit);
+		        
+		        final URL supr = getClass().getResource("Media/Audio/superhit.mp3");
+		        final Media hits = new Media(supr.toString());
+		        superPlayer = new MediaPlayer(hits);
+		        
+		        final URL resist = getClass().getResource("Media/Audio/resisthit.mp3");
+		        final Media hitr = new Media(resist.toString());
+		        resistPlayer = new MediaPlayer(hitr);
+		      }
+		});
 		
 		
 		

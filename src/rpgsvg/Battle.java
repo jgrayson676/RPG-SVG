@@ -10,6 +10,7 @@ import java.util.Random;
 import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -51,6 +52,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
     public static boolean p1Faster;
     public static boolean pokemonAttacks = true;
 	static MediaPlayer victoryplayer;
+	static MediaPlayer hitplayer;
     
 	public static Timer timer1 = new Timer(10, new ActionListener() {		//decrements Player 1's health bar and health text display to the targethealth1 value.
         public void actionPerformed(ActionEvent evt) {
@@ -463,10 +465,40 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         		MainGUI.appendText("\nCritical Hit!\n");
         	if(typemod == 0)
 				MainGUI.appendText("\nIt doesn't affect " + defender.name + "!\n");
+        	else if(typemod == 1)
+        	{
+        		Platform.runLater(new Runnable() {
+        			@Override public void run() {
+        				MainGUI.normalPlayer.setStartTime(Duration.ZERO);
+        				MainGUI.normalPlayer.seek(Duration.ZERO);
+        				MainGUI.normalPlayer.play();
+        		      }
+        		});
+        	}
 			else if(typemod < 1)
+			{
+				Platform.runLater(new Runnable() {
+        			@Override public void run() {
+        				MainGUI.resistPlayer.setStartTime(Duration.ZERO);
+        				MainGUI.resistPlayer.seek(Duration.ZERO);
+        				MainGUI.resistPlayer.play();
+        		      }
+        		});
 				MainGUI.appendText("\nIt's not very effective.\n");
+			}
+				
 			else if(typemod > 1)
+			{
+				Platform.runLater(new Runnable() {
+        			@Override public void run() {
+        				MainGUI.superPlayer.setStartTime(Duration.ZERO);
+        				MainGUI.superPlayer.seek(Duration.ZERO);
+        				MainGUI.superPlayer.play();
+        		      }
+        		});
 				MainGUI.appendText("\nIt's super effective!\n");
+			}
+				
         }
         
 		
