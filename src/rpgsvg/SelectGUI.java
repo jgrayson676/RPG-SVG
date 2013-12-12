@@ -122,6 +122,8 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Move hyperfang;
 	Move aquajet;
 	
+	Move dragonclaw;
+	
 	Move calmmind;
 	Move roost;
 	Move nastyplot;
@@ -190,6 +192,8 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Pokemon eelektross;
 	Pokemon stunfisk;
 	Pokemon magikarp;
+	
+	Pokemon dragonite;
 	
 	
 	Trigger overgrow = new Overgrow(venusaur);
@@ -316,6 +320,8 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	    hyperfang 		= new Move("Hyper Fang", 	true, 1, 80, 90, null, null, 0.1, 0, 0, 15);
 	    calmmind 		= new Move("Calm Mind", 	false, 11, 0, 100, new Modifier(1, 1, Pokemon.NO_STATUS, 0, 0, 1, 1, 0, 0, 0, 0, 0, null, true), null, 1, 0, 0, 20);
 	    
+	    dragonclaw		= new Move("Dragon Claw", 	true, 15, 80, 100, null, null, 0, 0, 0, 15);
+	    
 	    toxic 			= new Move("Toxic", false, 8, 0, 85, null, new Modifier(1, 1, Pokemon.BAD_POISON, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, true), 1, 0, 0, 10);
 	    willowisp 		= new Move("Will-o-Wisp", false, 2, 0, 85, null, new Modifier(1, 1, Pokemon.BURN, 0, 0, 0, 0, 0, 0, 0, 0, 0, null, true), 1, 0, 0, 15);
 	    thunderwave 	= new Move("Thunder Wave", false, 4, 0, 100, null, new Modifier(1, 1, Pokemon.PARALYSIS, 0,0,0,0,0,0,0,0,0, null, true), 1, 0, 0, 20);
@@ -428,6 +434,11 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		magikarp = new Pokemon("Magikarp", 20, 10, 55, 15, 20, 80, 3, 0, splash, flail, swag, hydropump, null);
 		magikarp.ability = new Sturdy(magikarp);
 		
+		dragonite = new Pokemon("Dragonite", 91, 134, 95, 100, 100, 80, 15, 10, dragondance, firepunch, extremespeed, dragonclaw, null);
+		
+		/*	Types: Normal(1), Fire(2), Water(3), Electric(4), Grass(5), Ice(6), Fighting(7), Poison(8),
+		 *  Ground(9), Flying(10), Psychic(11), Bug(12), Rock(13), Ghost(14), Dragon(15), Dark(16), Steel(17)
+		 */
 	}
 	
 	

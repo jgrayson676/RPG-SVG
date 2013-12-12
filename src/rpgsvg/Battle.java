@@ -91,20 +91,20 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         }
     }
 	);
-	public static Timer run1 = new Timer(1000, new ActionListener() {		//runs Player 1's attack on Player 2, with an initial delay of 1 second (altered as necessary)
+	public static Timer run1 = new Timer(1500, new ActionListener() {		//runs Player 1's attack on Player 2, with an initial delay of 1 second (altered as necessary)
 		public void actionPerformed(ActionEvent e) {
 			run1.setRepeats(false);
 			runAttack(p1, p2, p1.moves[move1], false);
 		}
 	});
-	public static Timer run2 = new Timer(1000, new ActionListener() {		//runs Player 2's attack on Player 1, with an initial delay of 1 second (altered as necessary)
+	public static Timer run2 = new Timer(1500, new ActionListener() {		//runs Player 2's attack on Player 1, with an initial delay of 1 second (altered as necessary)
 		public void actionPerformed(ActionEvent e) {
 			run2.setRepeats(false);
 			runAttack(p2, p1, p2.moves[move2], false);
 		}
 	});
 	
-	public static Timer end = new Timer(2000, new ActionListener() {		//runs ending mechanics and refreshes, and creates new TeamGUI windows as needed.
+	public static Timer end = new Timer(3250, new ActionListener() {		//runs ending mechanics and refreshes, and creates new TeamGUI windows as needed.
 		public void actionPerformed(ActionEvent e) {						//uses an initial delay of 2 seconds (altered as necessary)
 			end.setRepeats(false);
 			delayTime = 0;
@@ -127,7 +127,9 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 						c = false;
 				}
 				if (c) {
-					Platform.runLater(new Runnable() {
+					if(MainGUI.playMusic)
+					{
+						Platform.runLater(new Runnable() {
 						@Override public void run() {
 							
 					        final URL u = getClass().getResource("Media/Audio/victory.mp3");
@@ -139,6 +141,8 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 					        victoryplayer.setCycleCount(1);
 					      }
 					});
+					}
+					
 					JOptionPane.showMessageDialog(MainGUI.frmMainGUI, "P1 Victory!", "VICTORY",
 							2, MainGUI.team1.get(0).sprite1);
 					
@@ -155,7 +159,9 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 						b = false;
 				}
 				if (b) {
-					Platform.runLater(new Runnable() {
+					if(MainGUI.playMusic)
+					{
+						Platform.runLater(new Runnable() {
 						@Override public void run() {
 							
 					        final URL u = getClass().getResource("Media/Audio/victory.mp3");
@@ -167,6 +173,8 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 					        victoryplayer.setCycleCount(1);
 					      }
 					});
+					}
+					
 					JOptionPane.showMessageDialog(MainGUI.frmMainGUI, "P2 Victory!", "VICTORY",
 							2, MainGUI.team2.get(0).sprite2);
 					
@@ -467,35 +475,46 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 				MainGUI.appendText("\nIt doesn't affect " + defender.name + "!\n");
         	else if(typemod == 1)
         	{
-        		Platform.runLater(new Runnable() {
+        		if(MainGUI.playMusic)
+        		{
+        			Platform.runLater(new Runnable() {
         			@Override public void run() {
         				MainGUI.normalPlayer.setStartTime(Duration.ZERO);
         				MainGUI.normalPlayer.seek(Duration.ZERO);
         				MainGUI.normalPlayer.play();
         		      }
         		});
+        		}
+        		
         	}
 			else if(typemod < 1)
 			{
-				Platform.runLater(new Runnable() {
+				if(MainGUI.playMusic)
+				{
+					Platform.runLater(new Runnable() {
         			@Override public void run() {
         				MainGUI.resistPlayer.setStartTime(Duration.ZERO);
         				MainGUI.resistPlayer.seek(Duration.ZERO);
         				MainGUI.resistPlayer.play();
         		      }
         		});
+				}
 				MainGUI.appendText("\nIt's not very effective.\n");
 			}
 				
 			else if(typemod > 1)
 			{
-				Platform.runLater(new Runnable() {
+				if(MainGUI.playMusic)
+				{
+					Platform.runLater(new Runnable() {
         			@Override public void run() {
         				MainGUI.superPlayer.setStartTime(Duration.ZERO);
         				MainGUI.superPlayer.seek(Duration.ZERO);
         				MainGUI.superPlayer.play();
         		      }
         		});
+				}
+				
 				MainGUI.appendText("\nIt's super effective!\n");
 			}
 				

@@ -61,17 +61,28 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /*	
- _____  _____   _____        _______      ________ 
- |  __ \|  __ \ / ____|      / ____\ \    / / ____|
- | |__) | |__) | |  __ _____| (___  \ \  / / |  __ 
- |  _  /|  ___/| | |_ |______\___ \  \ \/ /| | |_ |
- | | \ \| |    | |__| |      ____) |  \  / | |__| |
- |_|  \_\_|     \_____|     |_____/    \/   \_____|
-
- Random Pokemon Generator - Simulator Video Game
- 		Copyright 2013 The RPG-SVG Team
- 	-Steven Chen, Jonathan Grayson, Eric Yu, Raymond Chen, Steven Tran-
- 		with networking by Shawn Wu
+						 _____  _____   _____        _______      ________ 
+						 |  __ \|  __ \ / ____|      / ____\ \    / / ____|
+						 | |__) | |__) | |  __ _____| (___  \ \  / / |  __ 
+						 |  _  /|  ___/| | |_ |______\___ \  \ \/ /| | |_ |
+						 | | \ \| |    | |__| |      ____) |  \  / | |__| |
+						 |_|  \_\_|     \_____|     |_____/    \/   \_____|
+						
+						 Random Pokemon Generator - Simulator Video Game
+						 		Copyright 2013 The RPG-SVG Team
+				-Steven Chen, Jonathan Grayson, Eric Yu, Raymond Chen, Steven Tran-
+						 			networking by Shawn Wu
+						 		
+						Based on the Pokemon game series by Nintendo
+						 		
+						 				credit to:
+			GAME FREAK- Satoshi Tajiri, Ken Sugimori, Junichi Masuda, Shota Kageyama
+						 		Pokecheck Sprites Database
+						 			Smogon University
+						 			Pokemon Database
+						 				Pokeparaiso
+						 				Serebii
+						 		
 
  *NOTE: REQUIRES JAVA SE 7*
  */
@@ -157,10 +168,11 @@ public class MainGUI { // The main game window for RPG-SVG.
 	static MediaPlayer superPlayer;
 	static MediaPlayer resistPlayer;
 
+	static boolean playMusic = false;
 
 	public enum Theme {
 		
-		GROUND	(0, "MainGUIground.jpeg", "TeamGUIground.jpeg", "gymextended.mp3", new Color(255, 250, 245)),
+		GROUND	(0, "MainGUIground.jpeg", "TeamGUIground.jpeg", "gymbattle.mp3", new Color(255, 250, 245)),
 		ROCK	(1, "MainGUIrock.jpeg", "TeamGUIrock.jpeg", "johtochampion.mp3", new Color(227, 227, 227)),
 		WATER	(2, "MainGUIwater.jpeg", "TeamGUIwater.jpeg", "laketrio.mp3", new Color(202, 221, 251)),
 		GRASS	(3, "MainGUIgrass.jpeg", "TeamGUIgrass.jpeg", "nbattle.mp3", new Color(215, 252, 191));
@@ -234,9 +246,9 @@ public class MainGUI { // The main game window for RPG-SVG.
 	
 	private void playMusic() {
 		
-		
-		
-		Platform.runLater(new Runnable() {
+		if(playMusic)
+		{
+			Platform.runLater(new Runnable() {
 			@Override public void run() {
 				
 		        final URL u = getClass().getResource("Media/Audio/" + theme.music);
@@ -247,6 +259,9 @@ public class MainGUI { // The main game window for RPG-SVG.
 		        mediaPlayer.setCycleCount(javafx.scene.media.MediaPlayer.INDEFINITE);
 		      }
 		});
+		}
+		
+		
 	}
 	
 	
@@ -267,7 +282,6 @@ public class MainGUI { // The main game window for RPG-SVG.
 					theme = x;
 				}
 			}
-			theme = Theme.GRASS;
 			ImageIcon i = new ImageIcon(this.getClass().getResource("Media/Images/" + theme.bgMainGUI));
 			image = i.getImage();
 		}
@@ -283,12 +297,15 @@ public class MainGUI { // The main game window for RPG-SVG.
 		frmMainGUI = new JFrame();
 		
 		
-		
-		@SuppressWarnings("unused")
+		if(playMusic)
+		{
+			@SuppressWarnings("unused")
 		final JFXPanel fxPanel = new JFXPanel();	//initializes JavaFX for MediaPlayer function
 		
 		Platform.runLater(new Runnable() {
 			@Override public void run() {
+				
+				final JFXPanel fxPanel = new JFXPanel();
 				
 		        final URL normal = getClass().getResource("Media/Audio/normalhit.mp3");
 		        final Media hit = new Media(normal.toString());
@@ -303,6 +320,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		        resistPlayer = new MediaPlayer(hitr);
 		      }
 		});
+		}
+		
 		
 		
 		
