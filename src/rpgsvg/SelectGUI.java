@@ -59,9 +59,9 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Move crunch;
 	Move stoneedge;
 	Move psychic;
-	Move airslash;
-	Move dynamicpunch;
-	Move signalbeam;
+	Move airslash;		//Need flinch pls
+	Move dynamicpunch;	//Needs confusion
+	Move signalbeam;	//Needs confusion
 	Move firepunch;
 	Move bodyslam;
 	Move thunderpunch;
