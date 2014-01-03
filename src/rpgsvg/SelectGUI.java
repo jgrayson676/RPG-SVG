@@ -407,7 +407,7 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		drifblim = new Pokemon("Drifblim", 150, 80, 44, 90, 54, 80, 14, 10, shadowball, thunderbolt, flamethrower, calmmind, null);
 		gastrodon = new Pokemon("Gastrodon", 111, 83, 68, 92, 82, 39, 3, 9, scald, earthpower, recover, toxic, null);
 		gastrodon.ability = new Stormdrain(gastrodon);
-		drapion = new Pokemon("Drapion", 70, 90, 110, 60, 75, 95, 9, 16, crunch, earthquake, poisonjab, swordsdance, null);
+		drapion = new Pokemon("Drapion", 70, 90, 110, 60, 75, 95, 8, 16, crunch, earthquake, poisonjab, swordsdance, null);
 		drapion.ability = new Sniper(drapion);
 		porygonz = new Pokemon("Porygon-Z", 85, 80, 70, 135, 75, 90, 1, 0, icebeam, triattack, nastyplot, agility, null);
 		porygonz.ability = new Adaptability(porygonz);
