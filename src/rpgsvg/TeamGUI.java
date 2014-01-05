@@ -33,6 +33,8 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 	static int j;
 	static int k;
 	static JPanel teampanel;
+	static boolean team1open;
+	static boolean team2open;
 	
 	JLabel lblP1 = null, lblP2 = null, lblP3 = null, lblP4 = null, lblP5 = null, lblP6 = null;
 	JLabel[] lblNames = {lblP1, lblP2, lblP3, lblP4, lblP5, lblP6};
@@ -56,13 +58,27 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 	
 	/* CONSTRUCTOR */
 	public TeamGUI(int i) { // i = 1 displays Team 1, i == 2 displays Team 2
-		team = i;
-		if (team == 1)
-			teamsize = MainGUI.team1.size();
-		else if (team == 2)
-			teamsize = MainGUI.team2.size();
-		initialize();
-		frmTeamGUI.setVisible(true);
+		if(i == 1 && team1open || i == 2 && team2open)
+		{
+			
+		}
+		else
+		{
+			team = i;
+			if(team == 1)
+			{
+				team1open = true;
+				teamsize = MainGUI.team1.size();
+			}
+			else if(team == 2)
+			{
+				team2open= true;
+				teamsize = MainGUI.team2.size();
+			}
+			initialize();
+			frmTeamGUI.setVisible(true);
+		}
+		
 	}
 
 	/* METHODS */
@@ -96,6 +112,16 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 		
 		class WindowEventHandler extends WindowAdapter {
 			  public void windowClosing(WindowEvent evt) {
+				  if(team == 1)
+				  {
+					  team1open = false;
+				  }
+					  
+				  if(team == 2)
+				  {
+					  team2open = false;
+				  }
+					  
 			    MainGUI.frmMainGUI.setEnabled(true);
 			  }
 			}
@@ -206,6 +232,7 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 							j = i;
 					}
 					if(team == 1) {
+						team1open = false;
 						if(MainGUI.team1.get(0).currenthealth == 0) {
 							frmTeamGUI.dispose();
 							MainGUI.switchIn(j+1, team);
@@ -218,6 +245,7 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 						}
 					}
 					if(team == 2) {
+						team2open = false;
 						if(MainGUI.team2.get(0).currenthealth == 0) {
 							frmTeamGUI.dispose();
 							MainGUI.switchIn(j+1, team);
