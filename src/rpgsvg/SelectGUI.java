@@ -70,7 +70,7 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Move extremespeed;
 	Move splash;
 	Move swag;
-	Move rockslide;					
+	Move rockslide;		//Need flinch pls			
 	Move icepunch;
 	Move hydropump;
 	Move energyball;
