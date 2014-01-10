@@ -192,6 +192,8 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Pokemon eelektross;
 	Pokemon stunfisk;
 	Pokemon magikarp;
+	Pokemon weavile;
+	
 	
 	Pokemon dragonite;
 	
@@ -413,7 +415,8 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		porygonz.ability = new Adaptability(porygonz);
 		yanmega = new Pokemon("Yanmega", 85, 76, 86, 116, 56, 95, 12, 10, bugbuzz, airslash, uturn, nightslash, null);
 		yanmega.ability = new Speedboost(yanmega);
-		// weavile = new Pokemon("Weavile", 70, 120, 65, 45, 85, 125, 16, 6, tackle, tackle, tackle, tackle, null);
+		weavile = new Pokemon("Weavile", 70, 120, 65, 45, 85, 125, 16, 6, nightslash, iceshard, toxic, swordsdance, null);
+		weavile.ability = new Technician(weavile);
 		serperior = new Pokemon("Serperior", 75, 75, 95, 75, 95, 113, 5, 0, leafblade, aquatail, uturn, coil, null);
 		serperior.ability = new Overgrow(serperior);
 		emboar = new Pokemon("Emboar", 110, 123, 65, 100, 65, 65, 2, 7, flareblitz, wildcharge, hammerarm, bulkup, null);
@@ -555,7 +558,7 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		frmSelectGUI.getContentPane().add(lblP2Number);
 		
 		
-		Pokemon[] pokemon1 = {venusaur, charizard, blastoise, raichu, arcanine, alakazam, machamp, starmie, jolteon, snorlax, meganium, typhlosion, feraligatr, crobat, scizor, heracross, shuckle, ampharos, umbreon, houndoom, sceptile, blaziken, swampert, breloom, swellow, milotic, luvdisc, shedinja, cradily, flygon, torterra, infernape, empoleon, drifblim, gastrodon, drapion, yanmega, serperior, emboar, samurott, gigalith, jellicent, reuniclus, chandelure, eelektross, stunfisk, magikarp};
+		Pokemon[] pokemon1 = {venusaur, charizard, blastoise, raichu, arcanine, alakazam, machamp, starmie, jolteon, snorlax, meganium, typhlosion, feraligatr, crobat, scizor, heracross, shuckle, ampharos, umbreon, houndoom, sceptile, blaziken, swampert, breloom, swellow, milotic, luvdisc, shedinja, cradily, flygon, torterra, infernape, empoleon, drifblim, gastrodon, drapion, yanmega, serperior, emboar, samurott, gigalith, jellicent, reuniclus, chandelure, eelektross, stunfisk, magikarp, weavile, scrafty, porygonz};
 		List<Pokemon> shuffled =Arrays.asList(pokemon1);
 		Collections.shuffle(shuffled, random);
 		int mid = shuffled.size() / 2;
@@ -567,13 +570,14 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		{
 			listModel1.addElement(shuffled.get(i));
 		}
-		for(int i = mid; i < shuffled.size(); i ++)
+		for(int i = mid; i < shuffled.size(); i++)
 		{
 			listModel2.addElement(shuffled.get(i));
 		}
 		
 		
 		list1 = new JList<Pokemon>(listModel1);
+		System.out.println("List 1: " + listModel1.getSize());
 		list1.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				boolean a = e.getValueIsAdjusting();
@@ -587,6 +591,7 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		
 		
 		list2 = new JList<Pokemon>(listModel2);
+		System.out.println("List 2: " + listModel2.getSize());
 		list2.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				boolean a = e.getValueIsAdjusting();

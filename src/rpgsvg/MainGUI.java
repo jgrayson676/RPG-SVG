@@ -168,7 +168,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 	static MediaPlayer superPlayer;
 	static MediaPlayer resistPlayer;
 
-	static boolean playMusic = true;
+	static boolean playMusic = false;
 
 	public enum Theme {
 		
