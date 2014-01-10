@@ -79,7 +79,7 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Move aquatail;
 	Move scald;
 	Move xscissor;
-	Move darkpulse;
+	Move darkpulse;		//Need flinch pls
 	Move crosspoison;
 	Move triattack;
 	Move leafstorm;
