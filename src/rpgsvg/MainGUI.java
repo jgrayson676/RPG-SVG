@@ -168,7 +168,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 	static MediaPlayer superPlayer;
 	static MediaPlayer resistPlayer;
 
-	static boolean playMusic = true;
+	static boolean playMusic = false;
 
 	public enum Theme {
 		
@@ -176,7 +176,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		ROCK	(1, "MainGUIrock.jpeg", "TeamGUIrock.jpeg", "johtochampion.mp3", new Color(227, 227, 227)),
 		WATER	(2, "MainGUIwater.jpeg", "TeamGUIwater.jpeg", "laketrio.mp3", new Color(202, 221, 251)),
 		GRASS	(3, "MainGUIgrass.jpeg", "TeamGUIgrass.jpeg", "nbattle.mp3", new Color(215, 252, 191)),
-		FIRE	(4, "MainGUIfire.jpeg", "TeamGUIfire.jpeg", "cynthia.mp3", new Color(254, 222, 0));
+		FIRE	(4, "MainGUIfire.jpeg", "TeamGUIfire.jpeg", "ghetsis.mp3", new Color(254, 222, 0)),
+		STEEL	(5, "MainGUIsteel.jpeg", "TeamGUIsteel.jpeg", "cynthia.mp3", new Color(231,231,231));
 		
 		private final int id;
 		private final String bgMainGUI;
@@ -277,7 +278,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		Image image = null;
 		
 		try{
-			int j = (int)(Math.random() * 5);
+			int j = (int)(Math.random() * 6);
 			for(Theme x: Theme.values())
 			{
 				if(j == x.ID())
@@ -285,6 +286,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 					theme = x;
 				}
 			}
+			
+			theme = Theme.STEEL;
 			
 			ImageIcon i = new ImageIcon(this.getClass().getResource("Media/Images/" + theme.bgMainGUI));
 			image = i.getImage();
