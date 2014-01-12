@@ -334,7 +334,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 		
 		
 		crit = 1;
-		if(random.nextDouble() < Modifier.getCritChance(attacker.statModifiers[7] + m.critstage))
+		if(random.nextDouble() < Modifier.getCritChance(attacker.statModifiers[7] + m.getCritStage()))
 		{
 			crit = 2;
 		}
@@ -425,7 +425,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         	}
         }
         
-        bm.pp--;
+        bm.setPP(bm.getPP() - 1);
         
         if(m.getDamage() != 0)
         {

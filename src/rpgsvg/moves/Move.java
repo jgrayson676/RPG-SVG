@@ -21,6 +21,8 @@ public abstract class Move implements Serializable{		//Object specifications for
 	private int critstage; //0 is normal, 1 is high critical hit ratio
 	private int pp;
 	
+	private boolean calculateInBattle;
+	
 	/*CONSTRUCTORS*/
 	
 	public Move(){
@@ -66,7 +68,20 @@ public abstract class Move implements Serializable{		//Object specifications for
 		return this.pp;
 	}
 	
+	public void setPP(int i) {
+		this.pp = i;
+	}
 	public void run(){
 		
 	}
+
+	public boolean isCalculatedInBattle() {
+		return calculateInBattle;
+	}
+
+	public void setCalculateInBattle(boolean calculateInBattle) {
+		this.calculateInBattle = calculateInBattle;
+	}
+
+	
 }
