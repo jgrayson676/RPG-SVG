@@ -108,13 +108,13 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Move overheat;
 	Move shadowball;
 	Move bugbuzz;
-	Move uturn;
+	Move uturn;		//need switch :'(
 	Move nightslash;
 	Move leafblade;
-	Move wildcharge;
+	Move wildcharge;						//NOT IMPLEMENTED YET!!!!
 	Move hammerarm;
-	Move explosion;
-	Move drainpunch;
+	Move explosion;							//NOT IMPLEMENTED YET!!!!!!!
+	Move drainpunch; //need health draining
 	Move superpower;
 	Move flail;		//need implement
 	Move blizzard;
