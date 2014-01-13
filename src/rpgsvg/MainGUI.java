@@ -453,6 +453,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		    		healthBarP1.setForeground(Color.YELLOW);
 		    	else
 		    		healthBarP1.setForeground(Color.RED);
+		    	if(team1.get(0).currenthealth > 0 && healthBarP1.getValue() == 0)
+		    		healthBarP1.setValue(1);
 		    }
 		    });
 		
@@ -476,6 +478,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 		    		healthBarP2.setForeground(Color.YELLOW);
 		    	else
 		    		healthBarP2.setForeground(Color.RED);
+		    	if(team2.get(0).currenthealth > 0 && healthBarP2.getValue() == 0)
+		    		healthBarP2.setValue(1);
 		    }
 		    });
 		

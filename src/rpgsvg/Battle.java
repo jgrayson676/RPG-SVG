@@ -63,6 +63,9 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         		int x = MainGUI.healthBarP1.getValue()  * p1.stats[0] / 100;
         		MainGUI.lblHealthP1.setText(x + "/" + p1.stats[0]);
         	}
+        	
+
+        	
         	else
         	{
         		MainGUI.lblHealthP1.setText(p1.currenthealth + "/" + p1.stats[0]);
@@ -81,6 +84,8 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         		int x = MainGUI.healthBarP2.getValue()  * p2.stats[0] / 100;
         		MainGUI.lblHealthP2.setText(x + "/" + p2.stats[0]);
         	}
+        	
+
         		
         	else
         	{
