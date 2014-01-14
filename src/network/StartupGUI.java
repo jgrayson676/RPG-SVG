@@ -65,7 +65,7 @@ public class StartupGUI {
 		frame.getContentPane().add(panel_3);
 		panel_3.setLayout(new BoxLayout(panel_3, BoxLayout.Y_AXIS));
 		
-		JLabel lblRpgsvgNetworkingEdition = new JLabel("RPG-SVG: Networking Edition");
+		JLabel lblRpgsvgNetworkingEdition = new JLabel("RPG-SVG BETA   Version 6.0");
 		lblRpgsvgNetworkingEdition.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_3.add(lblRpgsvgNetworkingEdition);
 		
@@ -76,7 +76,7 @@ public class StartupGUI {
 		frame.getContentPane().add(panel);
 		
 		txtServerIp = new JTextField();
-		txtServerIp.setText("127.0.0.1:4444");
+		txtServerIp.setText("192.168.0.1:4444");
 		txtServerIp.setColumns(10);
 		
 		JButton btnStartClient = new JButton("Start Client");

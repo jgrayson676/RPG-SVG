@@ -17,6 +17,7 @@ import java.util.Random;
 
 
 
+
 import javax.swing.JFrame;
 import javax.sound.midi.*;
 import javax.swing.AbstractAction;
@@ -28,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+
 
 
 
@@ -106,7 +108,7 @@ import java.awt.event.ActionEvent;
  * 		v3.0- networking added
  * 		v4.0- animated sprites, colored type buttons, background, animation panel positioning
  * 		v5.0- transparent status panel, power points for moves, Generation 7 move and type changes, new background, graphical optimization, text enhancement
- * 		v6.0- improved interface, themes, 
+ * 		v6.0- full theming of interface and music, hitsounds, new gifs, health bar modifications, 50 Pokemon in use
  * 
  * 		
  * 		
@@ -169,6 +171,8 @@ public class MainGUI { // The main game window for RPG-SVG.
 	static MediaPlayer resistPlayer;
 
 	static boolean playMusic = false;
+	
+	static int version = 6;
 
 	public enum Theme {
 		
@@ -312,6 +316,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		Platform.runLater(new Runnable() {
 			@Override public void run() {
 				
+				@SuppressWarnings("unused")
 				final JFXPanel fxPanel = new JFXPanel();
 				
 		        final URL normal = getClass().getResource("Media/Audio/normalhit.mp3");
