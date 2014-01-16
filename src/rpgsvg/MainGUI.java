@@ -291,7 +291,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 				}
 			}
 			
-			theme = Theme.STEEL;
+
 			
 			ImageIcon i = new ImageIcon(this.getClass().getResource("Media/Images/" + theme.bgMainGUI));
 			image = i.getImage();
