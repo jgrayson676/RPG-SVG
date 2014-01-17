@@ -180,7 +180,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		ROCK	(1, "MainGUIrock.jpeg", "TeamGUIrock.jpeg", "johtochampion.mp3", new Color(227, 227, 227)),
 		WATER	(2, "MainGUIwater.jpeg", "TeamGUIwater.jpeg", "laketrio.mp3", new Color(202, 221, 251)),
 		GRASS	(3, "MainGUIgrass.jpeg", "TeamGUIgrass.jpeg", "nbattle.mp3", new Color(215, 252, 191)),
-		FIRE	(4, "MainGUIfire.jpeg", "TeamGUIfire.jpeg", "ghetsis.mp3", new Color(254, 222, 0)),
+		FIRE	(4, "MainGUIfire.jpeg", "TeamGUIfire.jpeg", "ghetsis.mp3", new Color(255, 222, 90)),
 		STEEL	(5, "MainGUIsteel.jpeg", "TeamGUIsteel.jpeg", "cynthia.mp3", new Color(231,231,231));
 		
 		private final int id;

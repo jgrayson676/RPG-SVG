@@ -463,6 +463,8 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 		
 		btnReady = new JButton("Ready!");
 		btnReady.setBounds(298, 236, 118, 42);
+		if(team ==2)
+			btnReady.setEnabled(false);
 		btnReady.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {		//receive information from the two lists.							
 				List<Pokemon> teamone = team1;
@@ -1114,7 +1116,11 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	}
 	
 	public void setReady(int i) {
-		if(i==1) team1isReady = true;
+		if(i==1){
+			team1isReady = true;
+			if(team ==2)
+				btnReady.setEnabled(true);
+		}
 		if(i==2) team2isReady = true;
 		
 		if(team1isReady && team2isReady) startGame();

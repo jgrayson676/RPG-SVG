@@ -98,7 +98,7 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 		frmTeamGUI.setAlwaysOnTop(true);
 		
 		MainGUI.frmMainGUI.setFocusable(false);
-		MainGUI.frmMainGUI.setEnabled(false);
+		//MainGUI.frmMainGUI.setEnabled(false);
 		
 		frmTeamGUI.setTitle("Pokemon Team Information");
 		if (team == 1)
@@ -122,7 +122,7 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 					  team2open = false;
 				  }
 					  
-			    MainGUI.frmMainGUI.setEnabled(true);
+			    //MainGUI.frmMainGUI.setEnabled(true);
 			  }
 			}
 		
@@ -225,7 +225,7 @@ public class TeamGUI { 	// The team status window for RPG-SVG. Used to obtain
 			
 			btnSwitchers[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					MainGUI.frmMainGUI.setEnabled(true);
+					//MainGUI.frmMainGUI.setEnabled(true);
 					for(int i = 0; i < btnSwitchers.length; i++)
 					{
 						if(e.getSource().equals(btnSwitchers[i]))
