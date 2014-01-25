@@ -3,16 +3,14 @@ package rpgsvg;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javafx.application.Platform;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
+
+
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import rpgsvg.triggers.*;
@@ -51,10 +49,11 @@ public class Battle implements Serializable {	//The encapsulating class for all 
     public static int finaldamage;
     public static boolean p1Faster;
     public static boolean pokemonAttacks = true;
-	static MediaPlayer victoryplayer;
-	static MediaPlayer hitplayer;
-    
-	public static Timer timer1 = new Timer(10, new ActionListener() {		//decrements Player 1's health bar and health text display to the targethealth1 value.
+
+    /**
+     * decrements Player 1's health bar and health text display to the targethealth1 value.
+     */
+	public static Timer timer1 = new Timer(10, new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
     		int currenthealthbar = MainGUI.healthBarP1.getValue();
         	if(currenthealthbar > targethealth1)
@@ -75,7 +74,12 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         }
     }
 	);
-	public static Timer timer2 = new Timer(10, new ActionListener() {		//decrements Player 2's health bar and health text display to the targethealth2 value.
+	
+	
+	/**
+	 * decrements Player 2's health bar and health text display to the targethealth2 value.
+	 */
+	public static Timer timer2 = new Timer(10, new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
         	int currenthealthbar = MainGUI.healthBarP2.getValue();
         	if(currenthealthbar > targethealth2)
@@ -123,7 +127,7 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 			
 			if(p2.currenthealth != 0 && p1.currenthealth != 0)
 				MainGUI.refresh();
-			/* BEGIN EDIT Steven T. fixed victory 11-3-13*/
+			
 			if(p2.currenthealth == 0)
 			{
 				boolean c = true;
@@ -132,26 +136,34 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 						c = false;
 				}
 				if (c) {
+					
+					System.out.println("hello");
+					
 					if(MainGUI.playMusic)
 					{
-						Platform.runLater(new Runnable() {
+						SwingUtilities.invokeLater(new Runnable() {
 						@Override public void run() {
-							
-					        final URL u = getClass().getResource("Media/Audio/victory.mp3");
-					        final Media hit = new Media(u.toString());
-					        victoryplayer = new MediaPlayer(hit);
-					        MainGUI.mediaPlayer.stop();
-					        victoryplayer.play();
-					        
-					        victoryplayer.setCycleCount(1);
+							MainGUI.playlist.stopClip(MainGUI.startbgmusic, MainGUI.stopbgmusic);
+							MainGUI.playlist.playClip(MainGUI.startvictory);
 					      }
 					});
 					}
 					
-					JOptionPane.showMessageDialog(MainGUI.frmMainGUI, "P1 Victory!", "VICTORY",
-							2, MainGUI.team1.get(0).sprite1);
+					 int reply = JOptionPane.showConfirmDialog(
+					            null,
+					            "P1 Victory!\n"
+					            + "Play Again?",
+					            "P1 Victory!",
+					            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,MainGUI.team1.get(0).sprite1);
+					 if (reply == JOptionPane.YES_OPTION) {
+						 MainGUI.frmMainGUI.dispose();
+				          SelectGUI selectGUI = new SelectGUI(0, new Random(), null);
+				          selectGUI.frmSelectGUI.setVisible(true);
+				        }
+				        else {
+				        	System.exit(0);
+				        }
 					
-					System.exit(0);
 				}
 				else if(MainGUI.team == 2 || MainGUI.team == 0) new TeamGUI(2);
 			}
@@ -164,30 +176,37 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 						b = false;
 				}
 				if (b) {
+					
+					System.out.println("Hello");
+					
 					if(MainGUI.playMusic)
 					{
-						Platform.runLater(new Runnable() {
+						SwingUtilities.invokeLater(new Runnable() {
 						@Override public void run() {
 							
-					        final URL u = getClass().getResource("Media/Audio/victory.mp3");
-					        final Media hit = new Media(u.toString());
-					        victoryplayer = new MediaPlayer(hit);
-					        MainGUI.mediaPlayer.stop();
-					        victoryplayer.play();
-					        
-					        victoryplayer.setCycleCount(1);
+					        MainGUI.playlist.stopClip(MainGUI.startbgmusic, MainGUI.stopbgmusic);
+					        MainGUI.playlist.playClip(MainGUI.startvictory);
 					      }
 					});
 					}
 					
-					JOptionPane.showMessageDialog(MainGUI.frmMainGUI, "P2 Victory!", "VICTORY",
-							2, MainGUI.team2.get(0).sprite2);
-					
-					System.exit(0);
+					 int reply = JOptionPane.showConfirmDialog(
+					            null,
+					            "P2 Victory!\n"
+					            + "Play Again?",
+					            "P2 Victory!",
+					            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,MainGUI.team2.get(0).sprite2);
+					 if (reply == JOptionPane.YES_OPTION) {
+						 MainGUI.frmMainGUI.dispose();
+				          SelectGUI selectGUI = new SelectGUI(0, new Random(), null);
+				          selectGUI.frmSelectGUI.setVisible(true);
+				        }
+				        else {
+				        	System.exit(0);
+				        }
 				}
 				else if(MainGUI.team == 1 || MainGUI.team == 0) new TeamGUI(1);
 			}
-			/* END EDIT Steven T. end victory fix 11-3-13*/
 		}
 	});
 	
@@ -203,10 +222,16 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 
 	
 	
-	/*CONSTRUCTOR*/
-	@SuppressWarnings("static-access")
-	public Battle(ArrayList<Pokemon> a, ArrayList<Pokemon> b, Random random)	//The battle object where all battle components and the current state of the Pokemon are stored.
-	{															//Used as an encapsulating structure, and for saving and loading of games.
+	/**
+	 * The battle object where all battle components and the current state of the Pokemon are stored.
+	 * Used as an encapsulating structure, and for saving and loading of games.
+	 * 
+	 * @param a 		Team 1 for Player 1 (on the left side, the server in network games)
+	 * @param b 		Team 2 for Player 2 (on the right side, the client in network games)
+	 * @param random 	The random seed that is used to keep sync in networking games
+	 */
+	public Battle(ArrayList<Pokemon> a, ArrayList<Pokemon> b, Random random)
+	{															
 		team1 = a;
 		team2 = b;
 		
@@ -365,7 +390,15 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 		
 		
 	}
-					//Runs an attack by the attacker on the defender, using the move m
+	
+	/**
+	 * Runs an attack by the attacker pokemon on the defender.
+	 * @param battacker 	the attacking Pokemon
+	 * @param bdefender		the defending Pokemon
+	 * @param bm			the attacking move
+	 * @param isFirst		
+	 * @return true if the defender has been KO'ed, false if the move did not result in a KO or missed.
+	 */
 	public static boolean runAttack(Pokemon battacker, Pokemon bdefender, Move bm, boolean isFirst)		//TRUE=defender has fainted, FALSE=defender can attack
 	{
 		attacker = battacker;
@@ -482,11 +515,9 @@ public class Battle implements Serializable {	//The encapsulating class for all 
         	{
         		if(MainGUI.playMusic)
         		{
-        			Platform.runLater(new Runnable() {
+        			SwingUtilities.invokeLater(new Runnable() {
         			@Override public void run() {
-        				MainGUI.normalPlayer.setStartTime(Duration.ZERO);
-        				MainGUI.normalPlayer.seek(Duration.ZERO);
-        				MainGUI.normalPlayer.play();
+        				MainGUI.playlist.playClip(MainGUI.startnormalhit);
         		      }
         		});
         		}
@@ -496,11 +527,9 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 			{
 				if(MainGUI.playMusic)
 				{
-					Platform.runLater(new Runnable() {
+					SwingUtilities.invokeLater(new Runnable() {
         			@Override public void run() {
-        				MainGUI.resistPlayer.setStartTime(Duration.ZERO);
-        				MainGUI.resistPlayer.seek(Duration.ZERO);
-        				MainGUI.resistPlayer.play();
+        				MainGUI.playlist.playClip(MainGUI.startresisthit);
         		      }
         		});
 				}
@@ -511,11 +540,9 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 			{
 				if(MainGUI.playMusic)
 				{
-					Platform.runLater(new Runnable() {
+					SwingUtilities.invokeLater(new Runnable() {
         			@Override public void run() {
-        				MainGUI.superPlayer.setStartTime(Duration.ZERO);
-        				MainGUI.superPlayer.seek(Duration.ZERO);
-        				MainGUI.superPlayer.play();
+        				MainGUI.playlist.playClip(MainGUI.startsuperhit);
         		      }
         		});
 				}
@@ -587,6 +614,12 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 	 *  Ground(9), Flying(10), Psychic(11), Bug(12), Rock(13), Ghost(14), Dragon(15), Dark(16), Steel(17)
 	 */
 	
+	/**
+	 * Checks for attack multipliers.
+	 * @param attType	the type of the attack used.
+	 * @param defType	the type of the defending pokemon (will run twice if there is two).
+	 * @return the attack multiplier (.5, 1, or 2)
+	 */
 	public static double typeCheck(int attType, int defType){						//Checks for attack multipliers
 	                       //NorFirWatEleGraIceFigPoiGroFlyPsyBugRocGhoDraDarSte
 	  double[][] matchups = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,.5, 0, 1, 1,.5}, /* Normal */		//columns are defensive, rows are offensive
@@ -611,7 +644,11 @@ public class Battle implements Serializable {	//The encapsulating class for all 
 	  return -1;
 	  }
 	
-	
+	/**
+	 * Keeps the p1 and p2 fields current, as necessary.
+	 * @param i		1 if Player 1, 2 if Player 2
+	 * @param p		the Pokemon that will be set as the lead Pokemon.
+	 */
 	public void refresh(int i, Pokemon p)	//keeps the p1 and p2 fields current, as necessary.
 	{
 		if(i == 1)

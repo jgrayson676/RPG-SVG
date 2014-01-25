@@ -1,22 +1,14 @@
 package rpgsvg;
 
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-
-
-
-
-
-
-
 
 import javax.swing.JFrame;
 import javax.sound.midi.*;
@@ -28,20 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
-
-
-
-
-
-
-
-
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -55,6 +35,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
+import mp3Engine.MP3Sound;
 import network.NetworkObject;
 import rpgsvg.triggers.EndStatus;
 import rpgsvg.triggers.Status;
@@ -71,19 +52,20 @@ import java.awt.event.ActionEvent;
 						 |_|  \_\_|     \_____|     |_____/    \/   \_____|
 						
 						 Random Pokemon Generator - Simulator Video Game
-						 		Copyright 2013 The RPG-SVG Team
-				-Steven Chen, Jonathan Grayson, Eric Yu, Raymond Chen, Steven Tran-
-						 			networking by Shawn Wu
+						 		Copyright 2013-2014 The RPG-SVG Team
+					-Steven Chen, Jonathan Grayson, Eric Yu, Raymond Chen, Steven Tran-
+						 			Networking by Shawn Wu
+						 			Audio by Brian Ellis
 						 		
-						Based on the Pokemon game series by Nintendo
+							Based on the Pokemon game series by Nintendo
 						 		
-						 				credit to:
-			GAME FREAK- Satoshi Tajiri, Ken Sugimori, Junichi Masuda, Shota Kageyama
-						 		Pokecheck Sprites Database
-						 			Smogon University
-						 			Pokemon Database
-						 				Pokeparaiso
-						 				Serebii
+						 					credit to:
+				GAME FREAK- Satoshi Tajiri, Ken Sugimori, Junichi Masuda, Shota Kageyama
+						 			Pokecheck Sprites Database
+						 				Smogon University
+						 				Pokemon Database
+						 					Pokeparaiso
+						 					Serebii
 						 		
 
  *NOTE: REQUIRES JAVA SE 7*
@@ -109,7 +91,7 @@ import java.awt.event.ActionEvent;
  * 		v4.0- animated sprites, colored type buttons, background, animation panel positioning
  * 		v5.0- transparent status panel, power points for moves, Generation 7 move and type changes, new background, graphical optimization, text enhancement
  * 		v6.0- full theming of interface and music, hitsounds, new gifs, health bar modifications, 50 Pokemon in use
- * 
+ * 		v7.0- added mp3Engine by Brian
  * 		
  * 		
  * 		
@@ -165,61 +147,22 @@ public class MainGUI { // The main game window for RPG-SVG.
 	public static NetworkObject network;
 	private static Random random;
 	
-	static MediaPlayer mediaPlayer;
-	static MediaPlayer normalPlayer;
-	static MediaPlayer superPlayer;
-	static MediaPlayer resistPlayer;
+	public static MP3Sound playlist = new MP3Sound();
 
-	static boolean playMusic = false;
+	public int normalhit = playlist.addClipRelative("/rpgsvg/Media/Audio/normalhit.mp3");
+	public int superhit = playlist.addClipRelative("/rpgsvg/Media/Audio/superhit.mp3");
+	public int resisthit = playlist.addClipRelative("/rpgsvg/Media/Audio/resisthit.mp3");
 	
-	static int version = 6;
+	static boolean playMusic = true;
+	
+	static int version = 7;
 
-	public enum Theme {
-		
-		GROUND	(0, "MainGUIground.jpeg", "TeamGUIground.jpeg", "gymbattle.mp3", new Color(255, 250, 245)),
-		ROCK	(1, "MainGUIrock.jpeg", "TeamGUIrock.jpeg", "johtochampion.mp3", new Color(227, 227, 227)),
-		WATER	(2, "MainGUIwater.jpeg", "TeamGUIwater.jpeg", "laketrio.mp3", new Color(202, 221, 251)),
-		GRASS	(3, "MainGUIgrass.jpeg", "TeamGUIgrass.jpeg", "nbattle.mp3", new Color(215, 252, 191)),
-		FIRE	(4, "MainGUIfire.jpeg", "TeamGUIfire.jpeg", "ghetsis.mp3", new Color(255, 222, 90)),
-		STEEL	(5, "MainGUIsteel.jpeg", "TeamGUIsteel.jpeg", "cynthia.mp3", new Color(231,231,231));
-		
-		private final int id;
-		private final String bgMainGUI;
-		final String bgTeamGUI;
-		private final String music;
-		private final Color color;
-		
-		Theme(int x, String a, String b, String c, Color i)
-		{
-			this.id = x;
-			this.bgMainGUI = a;
-			this.bgTeamGUI = b;
-			this.music = c;
-			this.color = i;
-		}
-		
-		
-		
-		public int ID() {
-			return this.id;
-		}
-		
-		public String MainGUI() {
-			return this.bgMainGUI;
-		}
-		
-		public String TeamGUI() {
-			return this.bgTeamGUI;
-		}
-		
-		public String Music() {
-			return this.music;
-		}
-		
-		public Color Color() {
-			return this.color;
-		}
-	}
+	public static int startbgmusic;
+	public static int stopbgmusic;
+	public static int startnormalhit;
+	public static int startsuperhit;
+	public static int startresisthit;
+	public static int startvictory;
 	
 	static Theme theme;
 	
@@ -256,15 +199,10 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		if(playMusic)
 		{
-			Platform.runLater(new Runnable() {
+			SwingUtilities.invokeLater(new Runnable() {
 			@Override public void run() {
-				
-		        final URL u = getClass().getResource("Media/Audio/" + theme.music);
-		        final Media hit = new Media(u.toString());
-		        mediaPlayer = new MediaPlayer(hit);
-		        mediaPlayer.play();
-		        mediaPlayer.setAutoPlay(true);
-		        mediaPlayer.setCycleCount(javafx.scene.media.MediaPlayer.INDEFINITE);
+				startbgmusic = playlist.addClipRelative("/rpgsvg/Media/Audio/" + theme.getMusic());
+				stopbgmusic = playlist.playClip(startbgmusic);
 		      }
 		});
 		}
@@ -293,7 +231,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 			
 
 			
-			ImageIcon i = new ImageIcon(this.getClass().getResource("Media/Images/" + theme.bgMainGUI));
+			ImageIcon i = new ImageIcon(this.getClass().getResource("Media/Images/" + theme.getBgMainGUI()));
 			image = i.getImage();
 		}
 		catch(Exception e)
@@ -310,31 +248,16 @@ public class MainGUI { // The main game window for RPG-SVG.
 		
 		if(playMusic)
 		{
-			@SuppressWarnings("unused")
-		final JFXPanel fxPanel = new JFXPanel();	//initializes JavaFX for MediaPlayer function
-		
-		Platform.runLater(new Runnable() {
+
+		SwingUtilities.invokeLater(new Runnable() {
 			@Override public void run() {
-				
-				@SuppressWarnings("unused")
-				final JFXPanel fxPanel = new JFXPanel();
-				
-		        final URL normal = getClass().getResource("Media/Audio/normalhit.mp3");
-		        final Media hit = new Media(normal.toString());
-		        normalPlayer = new MediaPlayer(hit);
-		        
-		        final URL supr = getClass().getResource("Media/Audio/superhit.mp3");
-		        final Media hits = new Media(supr.toString());
-		        superPlayer = new MediaPlayer(hits);
-		        
-		        final URL resist = getClass().getResource("Media/Audio/resisthit.mp3");
-		        final Media hitr = new Media(resist.toString());
-		        resistPlayer = new MediaPlayer(hitr);
+				startnormalhit = playlist.addClipRelative("/rpgsvg/Media/Audio/normalhit.mp3");
+				startsuperhit = playlist.addClipRelative("/rpgsvg/Media/Audio/superhit.mp3");
+				startresisthit = playlist.addClipRelative("/rpgsvg/Media/Audio/resisthit.mp3");
+				startvictory = playlist.addClipRelative("/rpgsvg/Media/Audio/victory.mp3");
 		      }
 		});
 		}
-		
-		
 		
 		
 		if(team == 1)
@@ -717,7 +640,11 @@ public class MainGUI { // The main game window for RPG-SVG.
 	}
 	
 	
-	// Refreshes the main window after a player switches Pokemon.
+	/** 
+	 * Refreshes the main window after a player switches Pokemon.
+	 * @param switchout 	the Pokemon to be switched out
+	 * @param switchin		the Pokemon to be switched in
+	 */
 	public static void switchRefresh(Pokemon switchout, Pokemon switchin) 
 	{
 		battle.removeTriggers(switchout);
@@ -771,7 +698,7 @@ public class MainGUI { // The main game window for RPG-SVG.
 		}
 		
 		
-		//Enable the right buttons
+
 		refreshButtons();
 
 
@@ -803,13 +730,19 @@ public class MainGUI { // The main game window for RPG-SVG.
 		}
 	}
 	
-	//Chooses the correct Color for a button, based on the move's type int
+	/**
+	 * Chooses the correct Color for a button, based on the move's type int
+	 */
 	public static Color getBtnBackgrounds(Move m)	
 	{
 		return m.mtype.color();
 	}
 	
-	public static void refreshButtons() {		//Enable the right buttons
+	/**
+	 * Enables the right buttons based on current MainGUI settings.
+	 */
+	
+	public static void refreshButtons() {
 		if(team == 1) {
 			for(int i = 0; i < 4; i++)
 			{
