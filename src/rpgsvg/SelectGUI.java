@@ -111,9 +111,9 @@ public class SelectGUI {		//The beginning selection window for RPG-SVG.
 	Move uturn;		//need switch :'(
 	Move nightslash;
 	Move leafblade;
-	Move wildcharge;						//NOT IMPLEMENTED YET!!!!
+	Move wildcharge;//NOT IMPLEMENTED YET!!!!
 	Move hammerarm;
-	Move explosion;							//NOT IMPLEMENTED YET!!!!!!!
+	Move explosion;	//NOT IMPLEMENTED YET!!!!!!!
 	Move drainpunch; //need health draining
 	Move superpower;
 	Move flail;		//need implement
